@@ -12,10 +12,10 @@
 	###################
 
 	if(@txpinterface == 'admin') {
-		add_privs('rah_change_passwords','1');
-		register_tab('extensions','rah_change_passwords',gTxt('rah_change_passwords'));
-		register_callback('rah_change_passwords','rah_change_passwords');
-		register_callback('rah_change_passwords_head','admin_side','head_end');
+		add_privs('rah_change_passwords', '1');
+		register_tab('extensions', 'rah_change_passwords', gTxt('rah_change_passwords'));
+		register_callback('rah_change_passwords', 'rah_change_passwords');
+		register_callback('rah_change_passwords_head', 'admin_side', 'head_end');
 	}
 
 /**
@@ -71,7 +71,7 @@ EOF;
 	@param $remember bool If TRUE, sent values, apart from the password, are kept in the fields.
 */
 
-	function rah_change_passwords_edit($message='',$remember=false) {
+	function rah_change_passwords_edit($message='', $remember=false) {
 		
 		global $event;
 		
