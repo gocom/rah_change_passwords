@@ -1,7 +1,7 @@
 <?php	##################
 	#
 	#	rah_change_passwords-plugin for Textpattern
-	#	version 0.3
+	#	version 0.4
 	#	by Jukka Svahn
 	#	http://rahforum.biz
 	#
@@ -40,14 +40,14 @@
 		echo <<<EOF
 			<style type="text/css">
 				#rah_change_passwords_container {
-					width: 950px;
+					width: 450px;
 					margin: 0 auto;
 				}
 				#rah_change_passwords_container select {
-					width: 450px;
+					width: 250px;
 				}
 				#rah_change_passwords_container input.edit {
-					width: 940px;
+					width: 440px;
 				}
 			</style>
 EOF;
@@ -57,11 +57,20 @@ EOF;
 	The main pane
 */
 
-	function rah_change_passwords_edit($message='') {
+	function rah_change_passwords_edit($message='',$remember=0) {
 		
 		global $event;
 		
 		pagetop('Change passwords',$message);
+		
+		extract(gpsa(array(
+			'user_id',
+			'email_password',
+			'end_session'
+		)));
+		
+		if($remember == 0)
+			$end_session = $email_password = $user_id = '';
 
 		echo 
 			'	<form method="post" action="index.php" id="rah_change_passwords_container">'.n.
@@ -73,7 +82,7 @@ EOF;
 			'			<label>'.n.
 			'				User<br />'.n.
 			'				<select name="user_id">'.n.
-			'					<option value="">Select a user to modify...</option>'.n;
+			'					<option value="">Select an user to modify...</option>'.n;
 		
 		$rs = 
 			safe_rows(
@@ -83,7 +92,10 @@ EOF;
 			);
 		
 		foreach($rs as $a) 
-			echo '					<option value="'.htmlspecialchars($a['user_id']).'">'.htmlspecialchars($a['name']).'</option>'.n;
+			echo 
+				'					<option value="'.htmlspecialchars($a['user_id']).'"'.
+				($a['user_id'] == $user_id ? ' selected="selected"' : '').
+				'>'.htmlspecialchars($a['name']).'</option>'.n;
 		
 		echo 
 			'				</select>'.n.
@@ -104,10 +116,23 @@ EOF;
 			'		<p>'.n.
 			'			Email the password to the user?<br />'.n.
 			'			<label>'.n.
-			'				<input type="radio" name="email_password" value="yes" checked="checked" /> Yes'.n.
+			'				<input type="radio" name="email_password" value="yes"'.
+				($email_password != 'no' ? ' checked="checked"' : '').' /> Yes'.n.
 			'			</label>'.n.
 			'			<label>'.n.
-			'				<input type="radio" name="email_password" value="no" /> No'.n.
+			'				<input type="radio" name="email_password" value="no"'.
+				($email_password == 'no' ? ' checked="checked"' : '').' /> No'.n.
+			'			</label>'.n.
+			'		</p>'.n.
+			'		<p>'.n.
+			'			End user\'s active session?<br />'.n.
+			'			<label>'.n.
+			'				<input type="radio" name="end_session" value="yes"'.
+				($end_session != 'no' ? ' checked="checked"' : '').' /> Yes'.n.
+			'			</label>'.n.
+			'			<label>'.n.
+			'				<input type="radio" name="end_session" value="no"'.
+				($end_session == 'no' ? ' checked="checked"' : '').' /> No'.n.
 			'			</label>'.n.
 			'		</p>'.n.
 			'		<input type="submit" value="Change the password" class="publish" />'.n.
@@ -125,16 +150,17 @@ EOF;
 			'pass',
 			'confirm',
 			'user_id',
-			'email_password'
+			'email_password',
+			'end_session'
 		)));
 		
 		if(empty($pass) || empty($confirm) || empty($user_id)) {
-			rah_change_passwords_edit('Password or user fields are required.');
+			rah_change_passwords_edit('All fields are required.',1);
 			return;
 		}
 		
-		if($pass != $confirm) {
-			rah_change_passwords_edit('Password differs from confirmation.');
+		if($pass !== $confirm) {
+			rah_change_passwords_edit('Passwords did not match.',1);
 			return;
 		}
 		
@@ -146,19 +172,41 @@ EOF;
 			);
 			
 		if(!$rs) {
-			rah_change_passwords_edit('User not found.');
+			rah_change_passwords_edit('User not found.',1);
 			return;
 		}
+		
+		$sql = array();
+		
+		/*
+			Update nonce if killing session was
+			checked
+		*/
+		
+		if($end_session == 'yes')
+			$sql[] = "nonce='".doSlash(md5(uniqid(mt_rand(), TRUE)))."'";
+		
+		/*
+			Check if phpass is in use. If not, use the old
+			<= 4.3.0 method
+		*/
+		
+		include_once txpath.'/include/txp_auth.php';
+		
+		if(function_exists('txp_hash_password'))
+			$sql[] = "pass='".doSlash(txp_hash_password($pass))."'";
+		else
+			$sql[] = "pass=password('".doSlash($pass)."')";
 		
 		$update =
 			safe_update(
 				'txp_users',
-				"pass = password('".doSlash($pass)."')",
+				implode(',',$sql),
 				"user_id='".doSlash($user_id)."'"
 			);
 		
 		if($update == false) {
-			rah_change_passwords_edit('Updating database failed.');
+			rah_change_passwords_edit('Updating database failed.',1);
 			return;
 		}
 		
@@ -178,5 +226,5 @@ EOF;
 		;
 		
 		txpMail($email, "[$sitename] ".gTxt('your_new_password'), $message);
-		rah_change_passwords_edit('Password changed.');
+		rah_change_passwords_edit('Password changed and mailed.');
 	}?>

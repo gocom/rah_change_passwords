@@ -1,9 +1,9 @@
 h1. rah_change_passwords
 
-p. A tiny Textpattern plugin to manually reset and change passwords for you and for your mates via admin panel.
+p. A tiny "Textpattern":http://textpattern.com plugin to manually reset and change passwords for you and for your mates from tidy admin panel. The main difference to TXP's build in feature is that you, or your co-workers, do not need to receive an email contain the auto-generated password. Instead, you can change passwords to anything you want. Also adds an option to reset the current session.
 
-* Version: 0.3
-* Updated: 2010/10/25 5:00 PM UTC
+* Version: 0.4
+* Updated: 2011/03/23 9:55 PM UTC
 
 h3. Table of Contents
 
@@ -29,6 +29,13 @@ p. The general behavior stands: paste plugin code to the plugin installer textar
 
 h3(#changelog). Changelog
 
+p. *Version 0.4*
+
+* Added "PHPass":http://code.google.com/p/textpattern/source/detail?r=3488 support while keeping compatibility with current TXP version.
+* Added option to reset user's current session.
+* Remembers the field values if returned to the form because of an error.
+* Small wording and styling changes.
+
 p. *Version 0.3*
 
 * Changed the _Email the password to the user?_ dropdown (select field) to radio buttons.
@@ -41,10 +48,10 @@ p. *Version 0.2*
 
 * Added check against if password, user or confirmation password is empty.
 * Added option to not email the password.
-* Now checks that the database update was succesful before sending email.
+* Now checks that the database update was successful before sending email.
 * Now by default the user dropdown has no user selected. Reduces the change of accidentally resetting Joe instead of John.
 * Updated the styling.
 
 p. *Version 0.1*
 
-* First release
+* Initial release.
