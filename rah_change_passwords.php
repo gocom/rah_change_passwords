@@ -1,15 +1,19 @@
-<?php	##################
-	#
-	#	rah_change_passwords-plugin for Textpattern
-	#	version 0.8
-	#	by Jukka Svahn
-	#	http://rahforum.biz
-	#
-	#	Copyright (C) 2011 Jukka Svahn <http://rahforum.biz>
-	#	Licensed under GNU Genral Public License version 2
-	#	http://www.gnu.org/licenses/gpl-2.0.html
-	#
-	###################
+<?php
+
+/**
+ * Rah_change_passwords plugin for Textpattern CMS.
+ *
+ * @author Jukka Svahn
+ * @date 2011-
+ * @license GNU GPLv2
+ * @link http://rahforum.biz/plugins/rah_change_passwords
+ *
+ * Requires Textpattern v4.4.1 or newer.
+ *
+ * Copyright (C) 2011 Jukka Svahn <http://rahforum.biz>
+ * Licensed under GNU Genral Public License version 2
+ * http://www.gnu.org/licenses/gpl-2.0.html
+ */
 
 	if(@txpinterface == 'admin') {
 		add_privs('rah_change_passwords', '1');
@@ -19,8 +23,8 @@
 	}
 
 /**
-	Delivers the panes
-*/
+ * Delivers the panes
+ */
 
 	function rah_change_passwords() {
 		global $step;
@@ -40,8 +44,8 @@
 	}
 
 /**
-	Adds styles to the <head>
-*/
+ * Adds styles to the <head>
+ */
 
 	function rah_change_passwords_head() {
 		global $event;
@@ -66,10 +70,10 @@ EOF;
 	}
 
 /**
-	The main pane
-	@param $message string Activity message
-	@param $remember bool If TRUE, sent values, apart from the password, are kept in the fields.
-*/
+ * The main pane
+ * @param string $message Activity message
+ * @param bool $remember If TRUE, sent values, apart from the password, are kept in the fields.
+ */
 
 	function rah_change_passwords_edit($message='', $remember=false) {
 		
@@ -158,8 +162,8 @@ EOF;
 	}
 
 /**
-	Saves the changes
-*/
+ * Saves the changes
+ */
 
 	function rah_change_passwords_save() {
 		extract(psa(array(
