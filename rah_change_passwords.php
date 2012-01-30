@@ -1,7 +1,7 @@
 <?php	##################
 	#
 	#	rah_change_passwords-plugin for Textpattern
-	#	version 0.6
+	#	version 0.7
 	#	by Jukka Svahn
 	#	http://rahforum.biz
 	#
@@ -32,9 +32,7 @@
 		
 		foreach(
 			array(
-				'documentation' => 'Documentation',
 				'slogan' => 'Reset user passwords',
-				'title' => 'Change passwords',
 				'new_password' => 'New password',
 				'confirm_new_password' => 'Confirm new password',
 				'email' => 'Email the password to the user?',
@@ -57,14 +55,15 @@
 		
 		$steps = 
 			array(
-				'rah_change_passwords_edit' => false,
-				'rah_change_passwords_save' => true
+				'edit' => false,
+				'save' => true
 			);
 		
 		if(!$step || !bouncer($step, $steps))
-			$step = 'rah_change_passwords_edit';
+			$step = 'edit';
 		
-		$step();
+		$func = 'rah_change_passwords_'.$step;
+		$func();
 	}
 
 /**
@@ -80,14 +79,14 @@
 		echo <<<EOF
 			<style type="text/css">
 				#rah_change_passwords_container {
-					width: 450px;
+					width: 350px;
 					margin: 0 auto;
 				}
 				#rah_change_passwords_container select {
-					width: 250px;
+					width: 160px;
 				}
 				#rah_change_passwords_container input.edit {
-					width: 440px;
+					width: 340px;
 				}
 			</style>
 EOF;
@@ -95,8 +94,8 @@ EOF;
 
 /**
 	The main pane
-	@param $message string The message shown in TXP's header. Should contain language string's name.
-	@param $remember bool If set to true, sent values, apart from the password, are kept in the fields.
+	@param $message string Activity message
+	@param $remember bool If TRUE, sent values, apart from the password, are kept in the fields.
 */
 
 	function rah_change_passwords_edit($message='',$remember=false) {
@@ -113,22 +112,22 @@ EOF;
 			'email_password',
 			'end_session'
 		)));
-		
+
 		if($remember == false)
 			$end_session = $email_password = $user_id = '';
 
 		echo 
-			'	<form method="post" action="index.php" id="rah_change_passwords_container" class="rah_ui_container" autocomplete="off">'.n.
-			'		<h1 class="rah_ui_head"><strong>rah_change_passwords</strong> | '.gTxt('rah_change_passwords_slogan').'</h1>'.n.
-			'		<p class="rah_ui_nav">'.n.
-			'			<span class="rah_ui_sep">&#187;</span> '.n.
-			'			<a href="?event=plugin&amp;step=plugin_help&amp;name=rah_change_passwords">'.gTxt('rah_change_passwords_documentation').'</a>'.n.
-			'		</p>'.n.
-			'		<p>'.n.
-			'			<label>'.n.
-			'				'.gTxt('rah_change_passwords_user').'<br />'.n.
-			'				<select name="user_id">'.n.
-			'					<option value="">'.gTxt('rah_change_passwords_select_user').'</option>'.n;
+			'<form method="post" action="index.php" id="rah_change_passwords_container" class="rah_ui_container" autocomplete="off">'.n.
+			
+			tInput().n.
+			eInput($event).n.
+			sInput('save').n.
+
+			'	<p>'.n.
+			'		<label>'.n.
+			'			'.gTxt('rah_change_passwords_user').'<br />'.n.
+			'			<select name="user_id">'.n.
+			'				<option value="">'.gTxt('rah_change_passwords_select_user').'</option>'.n;
 		
 		$rs = 
 			safe_rows(
@@ -139,53 +138,50 @@ EOF;
 		
 		foreach($rs as $a) 
 			echo 
-				'					<option value="'.htmlspecialchars($a['user_id']).'"'.
+				'				<option value="'.htmlspecialchars($a['user_id']).'"'.
 				($a['user_id'] == $user_id ? ' selected="selected"' : '').
 				'>'.htmlspecialchars($a['name']).'</option>'.n;
 		
 		echo 
-			'				</select>'.n.
-			'			</label>'.n.
-			'		</p>'.n.
-			'		<p>'.n.
-			'			<label>'.n.
-			'				'.gTxt('rah_change_passwords_new_password').'<br />'.n.
-			'				<input class="edit" type="password" name="pass" value="" />'.n.
-			'			</label>'.n.
-			'		</p>'.n.
-			'		<p>'.n.
-			'			<label>'.n.
-			'				'.gTxt('rah_change_passwords_confirm_new_password').'<br />'.n.
-			'				<input class="edit" type="password" name="confirm" value="" />'.n.
-			'			</label>'.n.
-			'		</p>'.n.
-			'		<p>'.n.
-			'			'.gTxt('rah_change_passwords_email').'<br />'.n.
-			'			<label>'.n.
-			'				<input type="radio" name="email_password" value="yes"'.
+			'			</select>'.n.
+			'		</label>'.n.
+			'	</p>'.n.
+			'	<p>'.n.
+			'		<label>'.n.
+			'			'.gTxt('rah_change_passwords_new_password').'<br />'.n.
+			'			<input class="edit" type="password" name="pass" value="" autocomplete="off" />'.n.
+			'		</label>'.n.
+			'	</p>'.n.
+			'	<p>'.n.
+			'		<label>'.n.
+			'			'.gTxt('rah_change_passwords_confirm_new_password').'<br />'.n.
+			'			<input class="edit" type="password" name="confirm" value="" autocomplete="off" />'.n.
+			'		</label>'.n.
+			'	</p>'.n.
+			'	<p>'.n.
+			'		'.gTxt('rah_change_passwords_email').'<br />'.n.
+			'		<label>'.n.
+			'			<input type="radio" name="email_password" value="yes"'.
 				($email_password != 'no' ? ' checked="checked"' : '').' /> '.gTxt('rah_change_passwords_yes').n.
-			'			</label>'.n.
-			'			<label>'.n.
+			'		</label>'.n.
+			'		<label>'.n.
 			'				<input type="radio" name="email_password" value="no"'.
 				($email_password == 'no' ? ' checked="checked"' : '').' /> '.gTxt('rah_change_passwords_no').n.
-			'			</label>'.n.
-			'		</p>'.n.
-			'		<p>'.n.
-			'			'.gTxt('rah_change_passwords_reset_session').'<br />'.n.
-			'			<label>'.n.
-			'				<input type="radio" name="end_session" value="yes"'.
+			'		</label>'.n.
+			'	</p>'.n.
+			'	<p>'.n.
+			'		'.gTxt('rah_change_passwords_reset_session').'<br />'.n.
+			'		<label>'.n.
+			'			<input type="radio" name="end_session" value="yes"'.
 				($end_session != 'no' ? ' checked="checked"' : '').' /> '.gTxt('rah_change_passwords_yes').n.
-			'			</label>'.n.
-			'			<label>'.n.
-			'				<input type="radio" name="end_session" value="no"'.
+			'		</label>'.n.
+			'		<label>'.n.
+			'			<input type="radio" name="end_session" value="no"'.
 				($end_session == 'no' ? ' checked="checked"' : '').' /> '.gTxt('rah_change_passwords_no').n.
-			'			</label>'.n.
-			'		</p>'.n.
-			'		<p><input type="submit" value="'.gTxt('rah_change_passwords_change_password').'" class="publish" /></p>'.n.
-			'		<input type="hidden" name="event" value="'.$event.'" />'.n.
-			'		<input type="hidden" name="step" value="rah_change_passwords_save" />'.n.
-			'		<input type="hidden" name="_txp_token" value="'.form_token().'" />'.n.
-			'	</form>'.n;
+			'		</label>'.n.
+			'	</p>'.n.
+			'	<p><input type="submit" value="'.gTxt('rah_change_passwords_change_password').'" class="publish" /></p>'.n.
+			'</form>'.n;
 	}
 
 /**

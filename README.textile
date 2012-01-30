@@ -2,8 +2,8 @@ h1. rah_change_passwords
 
 p. A tiny "Textpattern":http://textpattern.com plugin to manually reset and change passwords for you and for your mates from tidy admin panel. The main difference to TXP's build in feature is that you, or your co-workers, do not need to receive an email contain the auto-generated password. Instead, you can change passwords to anything you want. Also adds an option to reset the current session.
 
-* Version: 0.6
-* Updated: 2011/06/18 7:55 AM UTC
+* Version: 0.7
+* Updated: 2011/11/19 8:30 PM UTC
 
 h3. Table of Contents
 
@@ -29,6 +29,12 @@ h3(#installation-and-usage). Installation and usage
 p. The general behavior stands: paste plugin code to the plugin installer textarea and run the automatic setup. Then just activate the plugin and you are ready to change passwords via admin page under Extensions-tab.
 
 h3(#changelog). Changelog
+
+p. *Version 0.7*
+
+* Added: @autocomplete="off"@ to the inputs too.
+* Changed: Shortened admin-side step names to simple @edit@ and @save@.
+* Removed: That header and documentation link in effort to make the pane look more native.
 
 p. *Version 0.6*
 
