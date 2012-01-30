@@ -1,7 +1,7 @@
 <?php	##################
 	#
 	#	rah_change_passwords-plugin for Textpattern
-	#	version 0.7
+	#	version 0.8
 	#	by Jukka Svahn
 	#	http://rahforum.biz
 	#
@@ -13,7 +13,7 @@
 
 	if(@txpinterface == 'admin') {
 		add_privs('rah_change_passwords','1');
-		register_tab('extensions','rah_change_passwords',gTxt('rah_change_passwords') == 'rah_change_passwords' ? 'Change passwords' : gTxt('rah_change_passwords'));
+		register_tab('extensions','rah_change_passwords',gTxt('rah_change_passwords') == 'rah_change_passwords' ? 'Change Passwords' : gTxt('rah_change_passwords'));
 		register_callback('rah_change_passwords','rah_change_passwords');
 		register_callback('rah_change_passwords_head','admin_side','head_end');
 	}
@@ -32,6 +32,7 @@
 		
 		foreach(
 			array(
+				'rah_change_passwords' => 'Change Passwords',
 				'slogan' => 'Reset user passwords',
 				'new_password' => 'New password',
 				'confirm_new_password' => 'Confirm new password',
@@ -49,9 +50,14 @@
 				'yes' => 'Yes',
 				'no' => 'No'
 			) as $string => $translation
-		)
-			if(!isset($textarray['rah_change_passwords_'.$string]))
-				$textarray['rah_change_passwords_'.$string] = $translation;
+		) {
+			
+			$n = strpos($string, 'rah_') === 0 ? 
+				$string : 'rah_change_passwords_'.$string;
+			
+			if(!isset($textarray[$n]))
+				$textarray[$n] = $translation;
+		}
 		
 		$steps = 
 			array(
@@ -103,7 +109,7 @@ EOF;
 		global $event;
 		
 		pagetop(
-			gTxt('rah_change_passwords_title'),
+			gTxt('rah_change_passwords'),
 			$message ? gTxt('rah_change_passwords_'.$message) : ''
 		);
 		
