@@ -1,0 +1,34 @@
+h1. rah_change_passwords
+
+p. A tiny Textpattern plugin to manually reset and change passwords for you and for your mates via backend Extensions page.
+
+* Version: 0.1
+* Updated: 2008/10/24 3:50 PM GMT+2
+
+h3. Table of Contents
+
+* "Intro and description":#intro-and-description
+* "List of features":#list-of-features
+* "Requirements":#requirements
+* "Installation and usage":#installation-and-usage
+* "Changelog":#changelog
+
+h3(#list-of-features). List of features
+
+* Reset and change your and other user's user passwords.
+* Simple admin page under _TXP / Extensions / Change passwords_.
+
+h3(#requirements). Requirements
+
+* PHP 4.3.0+
+* Textpattern 4.0.4+
+
+h3(#installation-and-usage). Installation and usage
+
+p. The general behavior stands: paste plugin code to the plugin installer textarea and run the automatic setup. Then just activate the plugin and you are ready to change passwords via admin page under Extensions-tab.
+
+h3(#changelog). Changelog
+
+p. *Version 0.1*
+
+* First release
