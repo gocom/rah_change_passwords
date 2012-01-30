@@ -2,10 +2,7 @@ h1. rah_change_passwords
 
 p. A tiny "Textpattern":http://textpattern.com plugin to manually reset and change passwords for you and for your mates from tidy admin panel. The main difference to TXP's build in feature is that you, or your co-workers, do not need to receive an email contain the auto-generated password. Instead, you can change passwords to anything you want. Also adds an option to reset the current session.
 
-* Version: 0.8
-* Updated: 2011/11/22 7:05 PM UTC
-
-h3. Table of Contents
+h2. Table of Contents
 
 * "Intro and description":#intro-and-description
 * "List of features":#list-of-features
@@ -13,55 +10,55 @@ h3. Table of Contents
 * "Installation and usage":#installation-and-usage
 * "Changelog":#changelog
 
-h3(#list-of-features). List of features
+h2(#list-of-features). List of features
 
 * Change your and your fellow users' passwords to anything you desire.
 * Simple admin page under _TXP / Extensions / Change Passwords_.
 
-h3(#requirements). Requirements
+h2(#requirements). Requirements
 
 p. Minimum requirements:
 
 * Textpattern 4.4.1+
 
-h3(#installation-and-usage). Installation and usage
+h2(#installation-and-usage). Installation and usage
 
 p. The general behavior stands: paste plugin code to the plugin installer textarea and run the automatic setup. Then just activate the plugin and you are ready to change passwords via admin page under Extensions-tab.
 
-h3(#changelog). Changelog
+h2(#changelog). Changelog
 
-p. *Version 0.8*
+h3. Version 0.8 - 2011/11/22
 
 * Fixed: Missing language string.
 * Changed: Menu label to title case.
 
-p. *Version 0.7*
+h3. Version 0.7 - 2011/11/19
 
 * Added: @autocomplete="off"@ to the inputs too.
 * Changed: Shortened admin-side step names to simple @edit@ and @save@.
 * Removed: That header and documentation link in effort to make the pane look more native.
 
-p. *Version 0.6*
+h3. Version 0.6 - 2011/06/18
 
 * Fixed: Changed "Yes" and "No" to language strings.
 * Added: Now takes advantage of CSRF protection introduced in Textpattern v4.4.1.
 * Dropped backwards compatibility layer used from v0.4 to 0.5. Users using older Textpattern version can still keep using "older versions of rah_change_passwords":http://rahforum.biz/plugins/rah_change_passwords/versions.
 * Now requires Textpattern version 4.4.1 or newer.
 
-p. *Version 0.5*
+h3. Version 0.5 - 2011/06/01
 
 * Added: Disabled password autocompletion by adding @autocomplete="off"@ to the form.
 * Added: The interface now has language string support.
 * Changed: Now only accepts requests sent as POST. GETs are ignored by the password changer.
 
-p. *Version 0.4*
+h3. Version 0.4 - 2011/03/23
 
 * Added "PHPass":http://code.google.com/p/textpattern/source/detail?r=3488 support while keeping compatibility with older TXP versions (v4.3.0 and older).
 * Added option to reset user's current session.
 * Remembers the field values if returned to the form because of an error.
 * Small wording and styling changes.
 
-p. *Version 0.3*
+h3. Version 0.3 - 2010/10/25
 
 * Changed the _Email the password to the user?_ dropdown (select field) to radio buttons.
 * Changed the plugin type to the newer _Admin only_.
@@ -69,7 +66,7 @@ p. *Version 0.3*
 * Removed unused HTML IDs.
 * Now requires Textpattern version 4.0.7 or newer.
 
-p. *Version 0.2*
+h3. Version 0.2 - 2010/06/01
 
 * Added check against if password, user or confirmation password is empty.
 * Added option to not email the password.
@@ -77,6 +74,6 @@ p. *Version 0.2*
 * Now by default the user dropdown has no user selected. Reduces the change of accidentally resetting Joe instead of John.
 * Updated the styling.
 
-p. *Version 0.1*
+h3. Version 0.1 - 2008/10/24
 
 * Initial release.
