@@ -2,8 +2,8 @@ h1. rah_change_passwords
 
 p. A tiny Textpattern plugin to manually reset and change passwords for you and for your mates via admin panel.
 
-* Version: 0.2
-* Updated: 2010/06/01 5:30 AM UTC
+* Version: 0.3
+* Updated: 2010/10/25 5:00 PM UTC
 
 h3. Table of Contents
 
@@ -21,13 +21,21 @@ h3(#list-of-features). List of features
 h3(#requirements). Requirements
 
 * PHP 4.3.0+
-* Textpattern 4.x.x+
+* Textpattern 4.0.7+
 
 h3(#installation-and-usage). Installation and usage
 
 p. The general behavior stands: paste plugin code to the plugin installer textarea and run the automatic setup. Then just activate the plugin and you are ready to change passwords via admin page under Extensions-tab.
 
 h3(#changelog). Changelog
+
+p. *Version 0.3*
+
+* Changed the _Email the password to the user?_ dropdown (select field) to radio buttons.
+* Changed the plugin type to the newer _Admin only_.
+* Removed inline CSS.
+* Removed unused HTML IDs.
+* Now requires Textpattern version 4.0.7 or newer.
 
 p. *Version 0.2*
 
