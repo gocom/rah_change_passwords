@@ -13,7 +13,7 @@
 
 	if(@txpinterface == 'admin') {
 		add_privs('rah_change_passwords','1');
-		register_tab('extensions','rah_change_passwords',gTxt('rah_change_passwords') == 'rah_change_passwords' ? 'Change Passwords' : gTxt('rah_change_passwords'));
+		register_tab('extensions','rah_change_passwords',gTxt('rah_change_passwords'));
 		register_callback('rah_change_passwords','rah_change_passwords');
 		register_callback('rah_change_passwords_head','admin_side','head_end');
 	}
@@ -23,41 +23,8 @@
 */
 
 	function rah_change_passwords() {
-		global $step, $textarray;
+		global $step;
 		require_privs('rah_change_passwords');
-		
-		/*
-			Make sure translation strings are set
-		*/
-		
-		foreach(
-			array(
-				'rah_change_passwords' => 'Change Passwords',
-				'slogan' => 'Reset user passwords',
-				'new_password' => 'New password',
-				'confirm_new_password' => 'Confirm new password',
-				'email' => 'Email the password to the user?',
-				'reset_session' => 'End user\'s active session?',
-				'change_password' => 'Change the password',
-				'select_user' => 'Select an user to modify...',
-				'user' => 'User',
-				'required_fields' => 'All fields are required.',
-				'confirmation_not_match' => 'Passwords did not match.',
-				'unknown_user' => 'User not found.',
-				'update_failed' => 'Updating database failed.',
-				'password_changed' => 'Password changed.',
-				'password_mailed' => 'Password changed and mailed.',
-				'yes' => 'Yes',
-				'no' => 'No'
-			) as $string => $translation
-		) {
-			
-			$n = strpos($string, 'rah_') === 0 ? 
-				$string : 'rah_change_passwords_'.$string;
-			
-			if(!isset($textarray[$n]))
-				$textarray[$n] = $translation;
-		}
 		
 		$steps = 
 			array(
