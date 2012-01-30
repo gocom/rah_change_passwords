@@ -1,7 +1,7 @@
 <?php	##################
 	#
 	#	rah_change_passwords-plugin for Textpattern
-	#	version 0.5
+	#	version 0.6
 	#	by Jukka Svahn
 	#	http://rahforum.biz
 	#
@@ -47,16 +47,24 @@
 				'unknown_user' => 'User not found.',
 				'update_failed' => 'Updating database failed.',
 				'password_changed' => 'Password changed.',
-				'password_mailed' => 'Password changed and mailed.'
+				'password_mailed' => 'Password changed and mailed.',
+				'yes' => 'Yes',
+				'no' => 'No'
 			) as $string => $translation
 		)
 			if(!isset($textarray['rah_change_passwords_'.$string]))
 				$textarray['rah_change_passwords_'.$string] = $translation;
 		
-		if($step == 'rah_change_passwords_save')
-			rah_change_passwords_save();
-		else
-			rah_change_passwords_edit();
+		$steps = 
+			array(
+				'rah_change_passwords_edit' => false,
+				'rah_change_passwords_save' => true
+			);
+		
+		if(!$step || !bouncer($step, $steps))
+			$step = 'rah_change_passwords_edit';
+		
+		$step();
 	}
 
 /**
@@ -155,27 +163,28 @@ EOF;
 			'			'.gTxt('rah_change_passwords_email').'<br />'.n.
 			'			<label>'.n.
 			'				<input type="radio" name="email_password" value="yes"'.
-				($email_password != 'no' ? ' checked="checked"' : '').' /> Yes'.n.
+				($email_password != 'no' ? ' checked="checked"' : '').' /> '.gTxt('rah_change_passwords_yes').n.
 			'			</label>'.n.
 			'			<label>'.n.
 			'				<input type="radio" name="email_password" value="no"'.
-				($email_password == 'no' ? ' checked="checked"' : '').' /> No'.n.
+				($email_password == 'no' ? ' checked="checked"' : '').' /> '.gTxt('rah_change_passwords_no').n.
 			'			</label>'.n.
 			'		</p>'.n.
 			'		<p>'.n.
 			'			'.gTxt('rah_change_passwords_reset_session').'<br />'.n.
 			'			<label>'.n.
 			'				<input type="radio" name="end_session" value="yes"'.
-				($end_session != 'no' ? ' checked="checked"' : '').' /> Yes'.n.
+				($end_session != 'no' ? ' checked="checked"' : '').' /> '.gTxt('rah_change_passwords_yes').n.
 			'			</label>'.n.
 			'			<label>'.n.
 			'				<input type="radio" name="end_session" value="no"'.
-				($end_session == 'no' ? ' checked="checked"' : '').' /> No'.n.
+				($end_session == 'no' ? ' checked="checked"' : '').' /> '.gTxt('rah_change_passwords_no').n.
 			'			</label>'.n.
 			'		</p>'.n.
 			'		<p><input type="submit" value="'.gTxt('rah_change_passwords_change_password').'" class="publish" /></p>'.n.
 			'		<input type="hidden" name="event" value="'.$event.'" />'.n.
 			'		<input type="hidden" name="step" value="rah_change_passwords_save" />'.n.
+			'		<input type="hidden" name="_txp_token" value="'.form_token().'" />'.n.
 			'	</form>'.n;
 	}
 
@@ -191,6 +200,8 @@ EOF;
 			'email_password',
 			'end_session'
 		)));
+		
+		global $sitename, $txp_user;
 		
 		if(empty($pass) || empty($confirm) || empty($user_id)) {
 			rah_change_passwords_edit('required_fields',true);
@@ -225,16 +236,11 @@ EOF;
 			$sql[] = "nonce='".doSlash(md5(uniqid(mt_rand(), TRUE)))."'";
 		
 		/*
-			Check if phpass is in use. If not, use the old
-			<= 4.3.0 method
+			Generate hash
 		*/
 		
 		include_once txpath.'/include/txp_auth.php';
-		
-		if(function_exists('txp_hash_password'))
-			$sql[] = "pass='".doSlash(txp_hash_password($pass))."'";
-		else
-			$sql[] = "pass=password('".doSlash($pass)."')";
+		$sql[] = "pass='".doSlash(txp_hash_password($pass))."'";
 		
 		if(
 			safe_update(
@@ -247,12 +253,20 @@ EOF;
 			return;
 		}
 		
+		/*
+			Destroy the cookies
+		*/
+		
+		if($end_session == 'yes' && $rs['name'] == $txp_user) {
+			$pub_path = preg_replace('|//$|','/', rhu.'/');
+			setcookie('txp_login', '', time()-3600);
+			setcookie('txp_login_public', '', time()-3600, $pub_path);
+		}
+		
 		if($email_password != 'yes') {
 			rah_change_passwords_edit('password_changed');
 			return;
 		}
-		
-		global $sitename;
 		
 		extract($rs);
 		
@@ -265,3 +279,4 @@ EOF;
 		txpMail($email, "[$sitename] ".gTxt('your_new_password'), $message);
 		rah_change_passwords_edit('password_mailed');
 	}
+?>
