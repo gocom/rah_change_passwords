@@ -1,0 +1,18 @@
+#@admin
+#@language fi-fi
+rah_change_passwords => Vaihda salasanoja
+rah_change_passwords_new_password => Uusi salasana
+rah_change_passwords_confirm_new_password => Salasana uudelleen
+rah_change_passwords_email => Lähetä salasana käyttäjän sähköpostiosoitteeseen?
+rah_change_passwords_reset_session => Lopeta käyttäjän aktiivinen sessio?
+rah_change_passwords_change_password => Vaihda salasana
+rah_change_passwords_select_user => Valitse muokattava käyttäjä...
+rah_change_passwords_user => Käyttäjä
+rah_change_passwords_required_fields => Kaikki kentät vaaditaan.
+rah_change_passwords_confirmation_not_match => Salasanat eivät täsmää.
+rah_change_passwords_unknown_user => Tuntematon käyttäjä.
+rah_change_passwords_update_failed => Tietokannan päivittäminen epäonnistui.
+rah_change_passwords_password_changed => Salasana vaihdettu.
+rah_change_passwords_password_mailed => Salasana vaihdettu ja lähetetty.
+rah_change_passwords_yes => Kyllä
+rah_change_passwords_no => Ei
