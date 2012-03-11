@@ -7,7 +7,6 @@ rah_change_passwords_email => Lähetä salasana käyttäjän sähköpostiosoitte
 rah_change_passwords_reset_session => Lopeta käyttäjän aktiivinen sessio?
 rah_change_passwords_change_password => Vaihda salasana
 rah_change_passwords_select_user => Valitse muokattava käyttäjä...
-rah_change_passwords_user => Käyttäjä
 rah_change_passwords_required_fields => Kaikki kentät vaaditaan.
 rah_change_passwords_confirmation_not_match => Salasanat eivät täsmää.
 rah_change_passwords_unknown_user => Tuntematon käyttäjä.

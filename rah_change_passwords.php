@@ -56,16 +56,31 @@
 		echo <<<EOF
 			<style type="text/css">
 				#rah_change_passwords_container {
-					width: 350px;
+					width: 300px;
 					margin: 0 auto;
 				}
 				#rah_change_passwords_container select {
 					width: 240px;
 				}
 				#rah_change_passwords_container input.edit {
-					width: 340px;
+					width: 290px;
 				}
 			</style>
+			<script type="text/javascript">
+				<!--
+				$(document).ready(function(){
+					var pane = $('#rah_change_passwords_container');
+					var drop = pane.find('select[name="user_id"]');
+					var ctrl = pane.find('p:not(:first)');
+					drop.val() ? ctrl.show() : ctrl.hide();
+					drop.parent().css({'text-align' : 'center'});
+					drop.change(function() {
+						$(this).val() ? ctrl.show() : ctrl.hide();
+						pane.find('input[type="password"]').val('');
+					});
+				});
+				//-->
+			</script>
 EOF;
 	}
 
@@ -101,10 +116,8 @@ EOF;
 			sInput('save').n.
 
 			'	<p>'.n.
-			'		<label>'.n.
-			'			'.gTxt('rah_change_passwords_user').'<br />'.n.
-			'			<select name="user_id">'.n.
-			'				<option value="">'.gTxt('rah_change_passwords_select_user').'</option>'.n;
+			'		<select name="user_id">'.n.
+			'			<option value="">'.gTxt('rah_change_passwords_select_user').'</option>'.n;
 		
 		$rs = 
 			safe_rows(
@@ -115,13 +128,12 @@ EOF;
 		
 		foreach($rs as $a) 
 			echo 
-				'				<option value="'.htmlspecialchars($a['user_id']).'"'.
+				'			<option value="'.htmlspecialchars($a['user_id']).'"'.
 				($a['user_id'] == $user_id ? ' selected="selected"' : '').
 				'>'.htmlspecialchars($a['name']).'</option>'.n;
 		
 		echo 
-			'			</select>'.n.
-			'		</label>'.n.
+			'		</select>'.n.
 			'	</p>'.n.
 			'	<p>'.n.
 			'		<label>'.n.
@@ -200,17 +212,8 @@ EOF;
 		
 		$sql = array();
 		
-		/*
-			Update nonce if killing session was
-			checked
-		*/
-		
 		if($end_session == 'yes')
 			$sql[] = "nonce='".doSlash(md5(uniqid(mt_rand(), TRUE)))."'";
-		
-		/*
-			Generate hash
-		*/
 		
 		include_once txpath.'/include/txp_auth.php';
 		$sql[] = "pass='".doSlash(txp_hash_password($pass))."'";
@@ -225,10 +228,6 @@ EOF;
 			rah_change_passwords_edit('update_failed',true);
 			return;
 		}
-		
-		/*
-			Destroy the cookies
-		*/
 		
 		if($end_session == 'yes' && $rs['name'] == $txp_user) {
 			$pub_path = preg_replace('|//$|','/', rhu.'/');
