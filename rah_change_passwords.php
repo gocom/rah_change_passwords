@@ -60,7 +60,7 @@
 					margin: 0 auto;
 				}
 				#rah_change_passwords_container select {
-					width: 160px;
+					width: 240px;
 				}
 				#rah_change_passwords_container input.edit {
 					width: 340px;
