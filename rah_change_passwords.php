@@ -18,15 +18,17 @@
 	if(@txpinterface == 'admin') {
 		add_privs('rah_change_passwords', '1');
 		register_tab('extensions', 'rah_change_passwords', gTxt('rah_change_passwords'));
-		register_callback('rah_change_passwords', 'rah_change_passwords');
-		register_callback('rah_change_passwords_head', 'admin_side', 'head_end');
+		register_callback(array('rah_change_passwords', 'panes'), 'rah_change_passwords');
+		register_callback(array('rah_change_passwords', 'head'), 'admin_side', 'head_end');
 	}
 
-/**
- * Delivers the panes
- */
+class rah_change_passwords {
 
-	function rah_change_passwords() {
+	/**
+	 * Delivers the panes
+	 */
+
+	static public function panes() {
 		global $step;
 		require_privs('rah_change_passwords');
 		
@@ -39,15 +41,15 @@
 		if(!$step || !bouncer($step, $steps))
 			$step = 'edit';
 		
-		$func = 'rah_change_passwords_'.$step;
-		$func();
+		$pane = new rah_change_passwords();
+		$pane->$step();
 	}
 
-/**
- * Adds styles to the <head>
- */
+	/**
+	 * Adds styles to the <head>
+	 */
 
-	function rah_change_passwords_head() {
+	static public function head() {
 		global $event;
 
 		if($event != 'rah_change_passwords')
@@ -84,13 +86,13 @@
 EOF;
 	}
 
-/**
- * The main pane
- * @param string $message Activity message
- * @param bool $remember If TRUE, sent values, apart from the password, are kept in the fields.
- */
+	/**
+	 * The main pane
+	 * @param string $message Activity message
+	 * @param bool $remember If TRUE, sent values, apart from the password, are kept in the fields.
+	 */
 
-	function rah_change_passwords_edit($message='', $remember=false) {
+	public function edit($message='', $remember=false) {
 		
 		global $event;
 		
@@ -173,11 +175,11 @@ EOF;
 			'</form>'.n;
 	}
 
-/**
- * Saves the changes
- */
+	/**
+	 * Saves the changes
+	 */
 
-	function rah_change_passwords_save() {
+	public function save() {
 		extract(psa(array(
 			'pass',
 			'confirm',
@@ -189,12 +191,12 @@ EOF;
 		global $sitename, $txp_user;
 		
 		if(empty($pass) || empty($confirm) || empty($user_id)) {
-			rah_change_passwords_edit('required_fields',true);
+			$this->edit('required_fields',true);
 			return;
 		}
 		
 		if($pass !== $confirm) {
-			rah_change_passwords_edit('confirmation_not_match',true);
+			$this->edit('confirmation_not_match',true);
 			return;
 		}
 		
@@ -206,7 +208,7 @@ EOF;
 			);
 			
 		if(!$rs) {
-			rah_change_passwords_edit('unknown_user',true);
+			$this->edit('unknown_user',true);
 			return;
 		}
 		
@@ -225,7 +227,7 @@ EOF;
 				"user_id='".doSlash($user_id)."'"
 			) == false
 		) {
-			rah_change_passwords_edit('update_failed',true);
+			$this->edit('update_failed',true);
 			return;
 		}
 		
@@ -236,7 +238,7 @@ EOF;
 		}
 		
 		if($email_password != 'yes') {
-			rah_change_passwords_edit('password_changed');
+			$this->edit('password_changed');
 			return;
 		}
 		
@@ -249,6 +251,8 @@ EOF;
 		;
 		
 		txpMail($email, "[$sitename] ".gTxt('your_new_password'), $message);
-		rah_change_passwords_edit('password_mailed');
+		$this->edit('password_mailed');
 	}
+}
+
 ?>
