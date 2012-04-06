@@ -142,7 +142,7 @@ EOF;
 			'	</p>'.n.
 			'	<p>'.n.
 			'		<label>'.n.
-			'			'.gTxt('rah_change_passwords_confirm_new_password').'<br />'.n.
+			'			'.gTxt('rah_change_passwords_confirm_pass').'<br />'.n.
 			'			<input class="edit" type="password" name="confirm" value="" autocomplete="off" />'.n.
 			'		</label>'.n.
 			'	</p>'.n.
@@ -193,7 +193,7 @@ EOF;
 		}
 		
 		if($pass !== $confirm) {
-			$this->edit(array(gTxt('rah_change_passwords_confirmation_not_match'), E_ERROR), true);
+			$this->edit(array(gTxt('rah_change_passwords_confirm_error'), E_ERROR), true);
 			return;
 		}
 		
@@ -235,7 +235,7 @@ EOF;
 		}
 		
 		if($email_password != 'yes') {
-			$this->edit(gTxt('rah_change_passwords_password_changed'));
+			$this->edit(gTxt('rah_change_passwords_changed'));
 			return;
 		}
 		
@@ -248,7 +248,7 @@ EOF;
 		;
 		
 		txpMail($email, "[$sitename] ".gTxt('your_new_password'), $message);
-		$this->edit(gTxt('rah_change_passwords_password_mailed'));
+		$this->edit(gTxt('rah_change_passwords_mailed'));
 	}
 }
 
