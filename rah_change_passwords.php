@@ -96,10 +96,7 @@ EOF;
 		
 		global $event;
 		
-		pagetop(
-			gTxt('rah_change_passwords'),
-			$message ? gTxt('rah_change_passwords_'.$message) : ''
-		);
+		pagetop(gTxt('rah_change_passwords'), $message);
 		
 		extract(psa(array(
 			'user_id',
@@ -191,12 +188,12 @@ EOF;
 		global $sitename, $txp_user;
 		
 		if(empty($pass) || empty($confirm) || empty($user_id)) {
-			$this->edit('required_fields',true);
+			$this->edit(array(gTxt('rah_change_passwords_required_fields'), E_ERROR), true);
 			return;
 		}
 		
 		if($pass !== $confirm) {
-			$this->edit('confirmation_not_match',true);
+			$this->edit(array(gTxt('rah_change_passwords_confirmation_not_match'), E_ERROR), true);
 			return;
 		}
 		
@@ -208,7 +205,7 @@ EOF;
 			);
 			
 		if(!$rs) {
-			$this->edit('unknown_user',true);
+			$this->edit(array(gTxt('rah_change_passwords_unknown_user'), E_ERROR), true);
 			return;
 		}
 		
@@ -227,7 +224,7 @@ EOF;
 				"user_id='".doSlash($user_id)."'"
 			) == false
 		) {
-			$this->edit('update_failed',true);
+			$this->edit(array(gTxt('rah_change_passwords_update_failed'), E_ERROR), true);
 			return;
 		}
 		
@@ -238,7 +235,7 @@ EOF;
 		}
 		
 		if($email_password != 'yes') {
-			$this->edit('password_changed');
+			$this->edit(gTxt('rah_change_passwords_password_changed'));
 			return;
 		}
 		
@@ -251,7 +248,7 @@ EOF;
 		;
 		
 		txpMail($email, "[$sitename] ".gTxt('your_new_password'), $message);
-		$this->edit('password_mailed');
+		$this->edit(gTxt('rah_change_passwords_password_mailed'));
 	}
 }
 
