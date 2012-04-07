@@ -57,15 +57,15 @@ class rah_change_passwords {
 
 		echo <<<EOF
 			<style type="text/css">
-				#rah_change_passwords_container {
+				#rah_change_passwords_container,
+				#rah_change_passwords_container p {
 					width: 300px;
-					margin: 0 auto;
+					margin-left: auto;
+					margin-right: auto;
 				}
+				#rah_change_passwords_container input.edit,
 				#rah_change_passwords_container select {
-					width: 240px;
-				}
-				#rah_change_passwords_container input.edit {
-					width: 290px;
+					width: 100%;
 				}
 			</style>
 			<script type="text/javascript">
@@ -75,7 +75,6 @@ class rah_change_passwords {
 					var drop = pane.find('select[name="user_id"]');
 					var ctrl = pane.find('p:not(:first)');
 					drop.val() ? ctrl.show() : ctrl.hide();
-					drop.parent().css({'text-align' : 'center'});
 					drop.change(function() {
 						$(this).val() ? ctrl.show() : ctrl.hide();
 						pane.find('input[type="password"]').val('');
