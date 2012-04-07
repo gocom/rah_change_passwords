@@ -3,8 +3,8 @@
 rah_change_passwords => Change Passwords
 rah_change_passwords_new_password => New password
 rah_change_passwords_confirm_pass => Confirm new password
-rah_change_passwords_email => Email the password to the user?
-rah_change_passwords_reset_session => End user's active session?
+rah_change_passwords_email => Email the password to the user
+rah_change_passwords_reset_session => End user's active session
 rah_change_passwords_change_password => Change the password
 rah_change_passwords_select_user => Select a user to modify...
 rah_change_passwords_required_fields => All fields are required.
@@ -13,5 +13,3 @@ rah_change_passwords_unknown_user => User not found.
 rah_change_passwords_update_failed => Updating database failed.
 rah_change_passwords_changed => Password changed.
 rah_change_passwords_mailed => Password changed and mailed.
-rah_change_passwords_yes => Yes
-rah_change_passwords_no => No

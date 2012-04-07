@@ -145,28 +145,23 @@ EOF;
 			'			<input class="edit" type="password" name="confirm" value="" autocomplete="off" />'.n.
 			'		</label>'.n.
 			'	</p>'.n.
+			
 			'	<p>'.n.
-			'		'.gTxt('rah_change_passwords_email').'<br />'.n.
 			'		<label>'.n.
-			'			<input type="radio" name="email_password" value="yes"'.
-				($email_password != 'no' ? ' checked="checked"' : '').' /> '.gTxt('rah_change_passwords_yes').n.
-			'		</label>'.n.
-			'		<label>'.n.
-			'				<input type="radio" name="email_password" value="no"'.
-				($email_password == 'no' ? ' checked="checked"' : '').' /> '.gTxt('rah_change_passwords_no').n.
+			'			<input type="checkbox" name="email_password" value="yes"'.
+				($email_password == 'yes' ? ' checked="checked"' : '').' />'.n.
+			'			'.gTxt('rah_change_passwords_email').''.n.
 			'		</label>'.n.
 			'	</p>'.n.
+			
 			'	<p>'.n.
-			'		'.gTxt('rah_change_passwords_reset_session').'<br />'.n.
 			'		<label>'.n.
-			'			<input type="radio" name="end_session" value="yes"'.
-				($end_session != 'no' ? ' checked="checked"' : '').' /> '.gTxt('rah_change_passwords_yes').n.
-			'		</label>'.n.
-			'		<label>'.n.
-			'			<input type="radio" name="end_session" value="no"'.
-				($end_session == 'no' ? ' checked="checked"' : '').' /> '.gTxt('rah_change_passwords_no').n.
+			'			<input type="checkbox" name="end_session" value="yes"'.
+				($end_session == 'yes' ? ' checked="checked"' : '').' />'.n.
+			'			'.gTxt('rah_change_passwords_reset_session').''.n.
 			'		</label>'.n.
 			'	</p>'.n.
+			
 			'	<p><input type="submit" value="'.gTxt('rah_change_passwords_change_password').'" class="publish" /></p>'.n.
 			'</form>'.n;
 	}
