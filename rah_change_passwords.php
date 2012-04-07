@@ -108,7 +108,7 @@ EOF;
 			$end_session = $email_password = $user_id = '';
 
 		echo 
-			'<form method="post" action="index.php" id="rah_change_passwords_container" class="rah_ui_container" autocomplete="off">'.n.
+			'<form method="post" action="index.php" id="rah_change_passwords_container" class="rah_ui_container txp-container" autocomplete="off">'.n.
 			
 			tInput().n.
 			eInput($event).n.
