@@ -1,6 +1,6 @@
 #@admin
 #Default language, en-us, en-gb
-rah_change_passwords => Change Passwords
+rah_change_passwords => Change passwords
 rah_change_passwords_new_password => New password
 rah_change_passwords_confirm_pass => Confirm new password
 rah_change_passwords_email => Email the password to the user
