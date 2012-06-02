@@ -11,7 +11,7 @@ h2. Requirements
 
 p. Minimum requirements:
 
-* Textpattern 4.4.1 or newer.
+* Textpattern 4.5.0 or newer.
 * PHP5 or newer.
 
 h2. Installation and usage
@@ -26,6 +26,7 @@ h3. Version 0.9 - upcoming
 * Changed: Removed embedded language strings and moved them to textpacks.
 * Changed: Fields are hidden until a user is selected.
 * Changed: Now uses class methods, and requires PHP5.
+* Changed: styling. Removed: @.edit@ selectors and Textpattern core theme fixes.
 
 h3. Version 0.8 - 2011/11/22
 
