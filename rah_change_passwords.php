@@ -4,7 +4,7 @@
  * Rah_change_passwords plugin for Textpattern CMS.
  *
  * @author Jukka Svahn
- * @date 2011-
+ * @date 2008-
  * @license GNU GPLv2
  * @link http://rahforum.biz/plugins/rah_change_passwords
  *
