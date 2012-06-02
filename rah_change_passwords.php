@@ -63,7 +63,8 @@ class rah_change_passwords {
 					margin-left: auto;
 					margin-right: auto;
 				}
-				#rah_change_passwords_container input.edit,
+				#rah_change_passwords_container input[type="text"],
+				#rah_change_passwords_container input[type="password"],
 				#rah_change_passwords_container select {
 					width: 100%;
 				}
@@ -136,13 +137,13 @@ EOF;
 			'	<p>'.n.
 			'		<label>'.n.
 			'			'.gTxt('rah_change_passwords_new_password').'<br />'.n.
-			'			<input class="edit" type="password" name="pass" value="" autocomplete="off" />'.n.
+			'			<input type="password" name="pass" value="" autocomplete="off" />'.n.
 			'		</label>'.n.
 			'	</p>'.n.
 			'	<p>'.n.
 			'		<label>'.n.
 			'			'.gTxt('rah_change_passwords_confirm_pass').'<br />'.n.
-			'			<input class="edit" type="password" name="confirm" value="" autocomplete="off" />'.n.
+			'			<input type="password" name="confirm" value="" autocomplete="off" />'.n.
 			'		</label>'.n.
 			'	</p>'.n.
 			
