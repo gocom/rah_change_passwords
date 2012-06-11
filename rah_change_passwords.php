@@ -228,7 +228,7 @@ EOF;
 		}
 		
 		if($end_session == 'yes' && $rs['name'] == $txp_user) {
-			$pub_path = preg_replace('|//$|','/', rhu.'/');
+			$pub_path = preg_replace('|//$|', '/', rhu.'/');
 			setcookie('txp_login', '', time()-3600);
 			setcookie('txp_login_public', '', time()-3600, $pub_path);
 		}
