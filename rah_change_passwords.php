@@ -219,7 +219,7 @@ EOF;
 		if(
 			safe_update(
 				'txp_users',
-				implode(',',$sql),
+				implode(',', $sql),
 				"user_id='".doSlash($user_id)."'"
 			) == false
 		) {
