@@ -104,8 +104,9 @@ EOF;
 			'end_session'
 		)));
 
-		if($remember == false)
+		if($remember == false) {
 			$end_session = $email_password = $user_id = '';
+		}
 
 		echo 
 			'<form method="post" action="index.php" id="rah_change_passwords_container" class="txp-container" autocomplete="off">'.n.
@@ -120,16 +121,17 @@ EOF;
 		
 		$rs = 
 			safe_rows(
-				'user_id,name',
+				'user_id, name',
 				'txp_users',
-				"1=1 order by name asc"
+				'1=1 ORDER BY name asc'
 			);
 		
-		foreach($rs as $a) 
+		foreach($rs as $a) {
 			echo 
 				'			<option value="'.htmlspecialchars($a['user_id']).'"'.
 				($a['user_id'] == $user_id ? ' selected="selected"' : '').
 				'>'.htmlspecialchars($a['name']).'</option>'.n;
+		}
 		
 		echo 
 			'		</select>'.n.
@@ -172,6 +174,9 @@ EOF;
 	 */
 
 	public function save() {
+		
+		global $sitename, $txp_user;
+		
 		extract(psa(array(
 			'pass',
 			'confirm',
@@ -179,8 +184,6 @@ EOF;
 			'email_password',
 			'end_session'
 		)));
-		
-		global $sitename, $txp_user;
 		
 		if(empty($pass) || empty($confirm) || empty($user_id)) {
 			$this->edit(array(gTxt('rah_change_passwords_required_fields'), E_ERROR), true);
@@ -206,8 +209,9 @@ EOF;
 		
 		$sql = array();
 		
-		if($end_session == 'yes')
+		if($end_session == 'yes') {
 			$sql[] = "nonce='".doSlash(md5(uniqid(mt_rand(), TRUE)))."'";
+		}
 		
 		include_once txpath.'/include/txp_auth.php';
 		$sql[] = "pass='".doSlash(txp_hash_password($pass))."'";
