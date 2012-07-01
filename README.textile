@@ -24,9 +24,8 @@ h3. Version 0.9 - upcoming
 
 * Added: Finnish translation.
 * Changed: Removed embedded language strings and moved them to textpacks.
-* Changed: Fields are hidden until a user is selected.
 * Changed: Now uses class methods, and requires PHP5.
-* Changed: styling. Removed: @.edit@ selectors and Textpattern core theme fixes.
+* Changed: Shares same look as core editor forms in TXP v4.5.0.
 
 h3. Version 0.8 - 2011/11/22
 
