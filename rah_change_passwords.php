@@ -8,7 +8,7 @@
  * @license GNU GPLv2
  * @link http://rahforum.biz/plugins/rah_change_passwords
  *
- * Requires Textpattern v4.4.1 or newer.
+ * Requires Textpattern v4.5.0 or newer.
  *
  * Copyright (C) 2011 Jukka Svahn <http://rahforum.biz>
  * Licensed under GNU Genral Public License version 2
@@ -19,7 +19,6 @@
 		add_privs('rah_change_passwords', '1');
 		register_tab('extensions', 'rah_change_passwords', gTxt('rah_change_passwords'));
 		register_callback(array('rah_change_passwords', 'panes'), 'rah_change_passwords');
-		register_callback(array('rah_change_passwords', 'head'), 'admin_side', 'head_end');
 	}
 
 class rah_change_passwords {
@@ -46,47 +45,6 @@ class rah_change_passwords {
 	}
 
 	/**
-	 * Adds styles to the <head>
-	 */
-
-	static public function head() {
-		global $event;
-
-		if($event != 'rah_change_passwords')
-			return;
-
-		echo <<<EOF
-			<style type="text/css">
-				#rah_change_passwords_container,
-				#rah_change_passwords_container p {
-					width: 300px;
-					margin-left: auto;
-					margin-right: auto;
-				}
-				#rah_change_passwords_container input[type="text"],
-				#rah_change_passwords_container input[type="password"],
-				#rah_change_passwords_container select {
-					width: 100%;
-				}
-			</style>
-			<script type="text/javascript">
-				<!--
-				$(document).ready(function(){
-					var pane = $('#rah_change_passwords_container');
-					var drop = pane.find('select[name="user_id"]');
-					var ctrl = pane.find('p:not(:first)');
-					drop.val() ? ctrl.show() : ctrl.hide();
-					drop.change(function() {
-						$(this).val() ? ctrl.show() : ctrl.hide();
-						pane.find('input[type="password"]').val('');
-					});
-				});
-				//-->
-			</script>
-EOF;
-	}
-
-	/**
 	 * The main pane
 	 * @param string $message Activity message
 	 * @param bool $remember If TRUE, sent values, apart from the password, are kept in the fields.
@@ -107,17 +65,6 @@ EOF;
 		if($remember == false) {
 			$end_session = $email_password = $user_id = '';
 		}
-
-		echo 
-			'<form method="post" action="index.php" id="rah_change_passwords_container" class="txp-container" autocomplete="off">'.n.
-			
-			tInput().n.
-			eInput($event).n.
-			sInput('save').n.
-
-			'	<p>'.n.
-			'		<select name="user_id">'.n.
-			'			<option value="">'.gTxt('rah_change_passwords_select_user').'</option>'.n;
 		
 		$rs = 
 			safe_rows(
@@ -126,47 +73,33 @@ EOF;
 				'1=1 ORDER BY name asc'
 			);
 		
-		foreach($rs as $a) {
-			echo 
-				'			<option value="'.htmlspecialchars($a['user_id']).'"'.
-				($a['user_id'] == $user_id ? ' selected="selected"' : '').
-				'>'.htmlspecialchars($a['name']).'</option>'.n;
-		}
+		$users = array();
 		
+		foreach($rs as $a) {
+			$users[$a['user_id']] = $a['name'];
+		}
+
 		echo 
-			'		</select>'.n.
-			'	</p>'.n.
-			'	<p>'.n.
-			'		<label>'.n.
-			'			'.gTxt('rah_change_passwords_new_password').'<br />'.n.
-			'			<input type="password" name="pass" value="" autocomplete="off" />'.n.
-			'		</label>'.n.
-			'	</p>'.n.
-			'	<p>'.n.
-			'		<label>'.n.
-			'			'.gTxt('rah_change_passwords_confirm_pass').'<br />'.n.
-			'			<input type="password" name="confirm" value="" autocomplete="off" />'.n.
-			'		</label>'.n.
-			'	</p>'.n.
+			form(eInput($event).sInput('save').
+				'<div class="txp-edit">'.n.
+				'<h2>'.gTxt('rah_change_passwords').'</h2>'.n.
+				
+				inputLabel(__CLASS__.'_user_id', selectInput('user_id', $users, $user_id, true, '', __CLASS__.'_user_id'), __CLASS__.'_user_id').n.
+				
+				inputLabel(__CLASS__.'_pass', fInput('password', 'pass', '', '', '', '', INPUT_REGULAR, '', __CLASS__.'_pass'), __CLASS__.'_new_password').n.
+				
+				inputLabel(__CLASS__.'_confirm', fInput('password', 'confirm', '', '', '', '', INPUT_REGULAR, '', __CLASS__.'_confirm'), __CLASS__.'_confirm_pass').n.
+				
+				graf(checkbox('email_password', '1', false, '', __CLASS__.'_email_password').n. '<label for="'.__CLASS__.'_email_password">'.gTxt('rah_change_passwords_email').'</label>', ' class="edit-'.__CLASS__.'_email_passwords"').n.
+				
+				graf(checkbox('end_session', '1', false, '', __CLASS__.'_end_session').n. '<label for="'.__CLASS__.'_end_session">'.gTxt('rah_change_passwords_reset_session').'</label>', ' class="edit-'.__CLASS__.'_end_session"').n.
 			
-			'	<p>'.n.
-			'		<label>'.n.
-			'			<input type="checkbox" name="email_password" value="yes"'.
-				($email_password == 'yes' ? ' checked="checked"' : '').' />'.n.
-			'			'.gTxt('rah_change_passwords_email').''.n.
-			'		</label>'.n.
-			'	</p>'.n.
-			
-			'	<p>'.n.
-			'		<label>'.n.
-			'			<input type="checkbox" name="end_session" value="yes"'.
-				($end_session == 'yes' ? ' checked="checked"' : '').' />'.n.
-			'			'.gTxt('rah_change_passwords_reset_session').''.n.
-			'		</label>'.n.
-			'	</p>'.n.
-			
-			'	<p><input type="submit" value="'.gTxt('rah_change_passwords_change_password').'" class="publish" /></p>'.n.
-			'</form>'.n;
+				graf(fInput('submit', 'change_pass', gTxt('rah_change_passwords_change_password'), 'publish')).
+				
+				script_js('$("#'.__CLASS__.'_confirm, #'.__CLASS__.'_pass").attr("autocomplete", "off");').
+				
+				'</div>'
+			, '', '', 'post');
 	}
 
 	/**
