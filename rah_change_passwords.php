@@ -82,7 +82,9 @@ EOF;
 			
 			inputLabel(__CLASS__.'_email_pass', yesnoradio(__CLASS__.'_email_pass', 0, '', __CLASS__.'_email_pass'), '', __CLASS__.'_email_pass').n.
 			
-			inputLabel(__CLASS__.'_reset_session', yesnoradio(__CLASS__.'_reset_session', 0, '', __CLASS__.'_reset_session'), '', __CLASS__.'_reset_session').n.
+			($txp_user !== $r['name'] ?
+				inputLabel(__CLASS__.'_reset_session', yesnoradio(__CLASS__.'_reset_session', 0, '', __CLASS__.'_reset_session'), '', __CLASS__.'_reset_session').n : ''
+			).
 			
 			script_js($js);
 	}
@@ -130,7 +132,7 @@ EOF;
 		
 		$sql = array();
 		
-		if($reset_session) {
+		if($reset_session && $txp_user !== $rs['name']) {
 			$sql[] = "nonce='".doSlash(md5(uniqid(mt_rand(), TRUE)))."'";
 		}
 		
@@ -146,12 +148,6 @@ EOF;
 		) {
 			echo $theme->announce(array(gTxt('rah_change_passwords_update_failed'), E_ERROR));
 			return;
-		}
-		
-		if($reset_session && $rs['name'] === $txp_user) {
-			$pub_path = preg_replace('|//$|', '/', rhu.'/');
-			setcookie('txp_login', '', time()-3600);
-			setcookie('txp_login_public', '', time()-3600, $pub_path);
 		}
 		
 		if(!$email_pass) {
