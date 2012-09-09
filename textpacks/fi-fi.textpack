@@ -1,9 +1,9 @@
 #@admin
 #@language fi-fi
-rah_change_passwords => Vaihda salasanoja
-rah_change_passwords_new_password => Uusi salasana
-rah_change_passwords_confirm_pass => Salasana uudelleen
-rah_change_passwords_email => Lähetä salasana käyttäjän sähköpostiosoitteeseen
+rah_change_passwords => Vaihda salasana
+rah_change_passwords_password => Uusi salasana
+rah_change_passwords_confirm => Salasana uudelleen
+rah_change_passwords_email_pass => Lähetä salasana käyttäjän sähköpostiosoitteeseen
 rah_change_passwords_reset_session => Lopeta käyttäjän aktiivinen sessio
 rah_change_passwords_change_password => Vaihda salasana
 rah_change_passwords_user_id => Muokattava käyttäjä

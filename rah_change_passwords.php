@@ -25,129 +25,104 @@ class rah_change_passwords {
 	
 	public function __construct() {
 		add_privs('rah_change_passwords', '1');
-		register_tab('extensions', 'rah_change_passwords', gTxt('rah_change_passwords'));
-		register_callback(array($this, 'panes'), 'rah_change_passwords');
+		register_callback(array($this, 'pane'), 'author_ui', 'extend_detail_form');
+		register_callback(array($this, 'save'), 'admin', 'author_save');
 	}
-
+	
 	/**
-	 * Delivers the panes
+	 * Adds options to the Users panel
 	 */
-
-	public function panes() {
-		global $step;
-		require_privs('rah_change_passwords');
+	
+	public function pane($event, $step, $void, $r) {
 		
-		$steps = 
-			array(
-				'edit' => false,
-				'save' => true
-			);
+		global $theme;
 		
-		if(!$step || !bouncer($step, $steps))
-			$step = 'edit';
-		
-		$this->$step();
-	}
-
-	/**
-	 * The main pane
-	 * @param string $message Activity message
-	 * @param bool $remember If TRUE, sent values, apart from the password, are kept in the fields.
-	 */
-
-	public function edit($message='', $remember=false) {
-		
-		global $event;
-		
-		pagetop(gTxt('rah_change_passwords'), $message);
-		
-		extract(psa(array(
-			'user_id',
-			'email_password',
-			'end_session'
-		)));
-
-		if($remember == false) {
-			$end_session = $email_password = $user_id = '';
+		if(!has_privs('rah_change_passwords') || !$r || !isset($r['user_id'])) {
+			return;
 		}
 		
-		$rs = 
-			safe_rows(
-				'user_id, name',
-				'txp_users',
-				'1=1 ORDER BY name asc'
-			);
+		$msg = escape_js($theme->announce_async(array(gTxt('rah_change_passwords_confirm_error'), E_ERROR)));
 		
-		$users = array();
-		
-		foreach($rs as $a) {
-			$users[$a['user_id']] = $a['name'];
-		}
+		$js = <<<EOF
+			$(document).ready(function(){
+				$('#user_edit, #rah_change_passwords_confirm, #rah_change_passwords_confirm_pass').attr('autocomplete', 'off');
+				
+				function validate_pass() {
+					var form = {
+						pass : $('#rah_change_passwords_pass').val(),
+						conf : $('#rah_change_passwords_confirm').val()
+					};
+					
+					if(form.pass === '' && form.conf === '') {
+						return true;
+					}
+					
+					return (form.pass === form.conf);
+				}
 
-		echo 
-			form(eInput($event).sInput('save').
-				'<div class="txp-edit">'.n.
-				'<h2>'.gTxt('rah_change_passwords').'</h2>'.n.
-				
-				inputLabel(__CLASS__.'_user_id', selectInput('user_id', $users, $user_id, true, '', __CLASS__.'_user_id'), __CLASS__.'_user_id').n.
-				
-				inputLabel(__CLASS__.'_pass', fInput('password', 'pass', '', '', '', '', INPUT_REGULAR, '', __CLASS__.'_pass'), __CLASS__.'_new_password').n.
-				
-				inputLabel(__CLASS__.'_confirm', fInput('password', 'confirm', '', '', '', '', INPUT_REGULAR, '', __CLASS__.'_confirm'), __CLASS__.'_confirm_pass').n.
-				
-				graf(checkbox('email_password', '1', false, '', __CLASS__.'_email_password').n. '<label for="'.__CLASS__.'_email_password">'.gTxt('rah_change_passwords_email').'</label>', ' class="edit-'.__CLASS__.'_email_passwords"').n.
-				
-				graf(checkbox('end_session', '1', false, '', __CLASS__.'_end_session').n. '<label for="'.__CLASS__.'_end_session">'.gTxt('rah_change_passwords_reset_session').'</label>', ' class="edit-'.__CLASS__.'_end_session"').n.
+				$('#user_edit').submit(function(){
+					if(!validate_pass()) {
+						$.globalEval("{$msg}");
+						return false;
+					}
+				});
+			});
+EOF;
+
+		return 
+			tag(gTxt('rah_change_passwords'), 'h3').n.
 			
-				graf(fInput('submit', 'change_pass', gTxt('rah_change_passwords_change_password'), 'publish')).
+			inputLabel(__CLASS__.'_pass', fInput('password', __CLASS__.'_pass', '', '', '', '', INPUT_REGULAR, '', __CLASS__.'_pass'), __CLASS__.'_pass').n.
 				
-				script_js('$("#'.__CLASS__.'_confirm, #'.__CLASS__.'_pass").attr("autocomplete", "off");').
-				
-				'</div>'
-			, '', '', 'post');
+			inputLabel(__CLASS__.'_confirm', fInput('password', __CLASS__.'_confirm', '', '', '', '', INPUT_REGULAR, '', __CLASS__.'_confirm'), __CLASS__.'_confirm').n.
+			
+			inputLabel(__CLASS__.'_email_pass', yesnoradio(__CLASS__.'_email_pass', 0, '', __CLASS__.'_email_pass'), '', __CLASS__.'_email_pass').n.
+			
+			inputLabel(__CLASS__.'_reset_session', yesnoradio(__CLASS__.'_reset_session', 0, '', __CLASS__.'_reset_session'), '', __CLASS__.'_reset_session').n.
+			
+			script_js($js);
 	}
 
 	/**
-	 * Saves the changes
+	 * Changes a password
 	 */
 
 	public function save() {
 		
-		global $sitename, $txp_user;
-		
-		extract(psa(array(
-			'pass',
-			'confirm',
+		extract(doSlash(psa(array(
 			'user_id',
-			'email_password',
-			'end_session'
-		)));
+		))));
 		
-		if(empty($pass) || empty($confirm) || empty($user_id)) {
-			$this->edit(array(gTxt('rah_change_passwords_required_fields'), E_ERROR), true);
+		global $sitename, $txp_user, $theme;
+		
+		foreach(array('pass', 'confirm', 'email_pass', 'reset_session') as $name) {
+			$$name = ps(__CLASS__.'_'.$name);
+		}
+		
+		if(!has_privs('rah_change_passwords') || !$user_id || !$pass) {
 			return;
 		}
 		
 		if($pass !== $confirm) {
-			$this->edit(array(gTxt('rah_change_passwords_confirm_error'), E_ERROR), true);
+			echo $theme->announce(array(gTxt('rah_change_passwords_confirm_error'), E_ERROR));
 			return;
 		}
-		
+			
 		$rs = 
 			safe_row(
-				'email,name',
+				'email, name',
 				'txp_users',
 				"user_id='".doSlash($user_id)."' LIMIT 0, 1"
 			);
-			
+		
 		if(!$rs) {
-			$this->edit(array(gTxt('rah_change_passwords_unknown_user'), E_ERROR), true);
+			echo $theme->announce(array(gTxt('rah_change_passwords_unknown_user'), E_ERROR));
 			return;
 		}
 		
 		$sql = array();
 		
-		if($end_session == 'yes') {
+		if($reset_session) {
 			$sql[] = "nonce='".doSlash(md5(uniqid(mt_rand(), TRUE)))."'";
 		}
 		
@@ -159,19 +134,19 @@ class rah_change_passwords {
 				'txp_users',
 				implode(',', $sql),
 				"user_id='".doSlash($user_id)."'"
-			) == false
+			) === false
 		) {
-			$this->edit(array(gTxt('rah_change_passwords_update_failed'), E_ERROR), true);
+			echo $theme->announce(array(gTxt('rah_change_passwords_update_failed'), E_ERROR));
 			return;
 		}
 		
-		if($end_session == 'yes' && $rs['name'] == $txp_user) {
+		if($reset_session && $rs['name'] === $txp_user) {
 			$pub_path = preg_replace('|//$|', '/', rhu.'/');
 			setcookie('txp_login', '', time()-3600);
 			setcookie('txp_login_public', '', time()-3600, $pub_path);
 		}
 		
-		if($email_password != 'yes') {
+		if(!$email_pass) {
 			$this->edit(gTxt('rah_change_passwords_changed'));
 			return;
 		}
