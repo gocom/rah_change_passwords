@@ -35,9 +35,13 @@ class rah_change_passwords {
 	
 	public function pane($event, $step, $void, $r) {
 		
-		global $theme;
+		global $theme, $txp_user;
 		
-		if(!has_privs('rah_change_passwords') || !$r || !isset($r['user_id'])) {
+		if(!$r || !isset($r['user_id'])) {
+			return;
+		}
+		
+		if(!has_privs('rah_change_passwords') && $txp_user !== $r['name']) {
 			return;
 		}
 		
@@ -99,7 +103,18 @@ EOF;
 			$$name = ps(__CLASS__.'_'.$name);
 		}
 		
-		if(!has_privs('rah_change_passwords') || !$user_id || !$pass) {
+		if(!$user_id || !$pass) {
+			return;
+		}
+		
+		$rs = 
+			safe_row(
+				'email, name',
+				'txp_users',
+				"user_id='".doSlash($user_id)."' LIMIT 0, 1"
+			);
+		
+		if(!has_privs('rah_change_passwords') && $txp_user !== $rs['name']) {
 			return;
 		}
 		
@@ -107,13 +122,6 @@ EOF;
 			echo $theme->announce(array(gTxt('rah_change_passwords_confirm_error'), E_ERROR));
 			return;
 		}
-			
-		$rs = 
-			safe_row(
-				'email, name',
-				'txp_users',
-				"user_id='".doSlash($user_id)."' LIMIT 0, 1"
-			);
 		
 		if(!$rs) {
 			echo $theme->announce(array(gTxt('rah_change_passwords_unknown_user'), E_ERROR));
