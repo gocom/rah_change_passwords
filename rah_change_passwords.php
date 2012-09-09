@@ -147,7 +147,7 @@ EOF;
 		}
 		
 		if(!$email_pass) {
-			$this->edit(gTxt('rah_change_passwords_changed'));
+			echo $theme->announce(gTxt('rah_change_passwords_changed'));
 			return;
 		}
 		
@@ -160,7 +160,7 @@ EOF;
 		;
 		
 		txpMail($email, "[$sitename] ".gTxt('your_new_password'), $message);
-		$this->edit(gTxt('rah_change_passwords_mailed'));
+		echo $theme->announce(gTxt('rah_change_passwords_mailed'));
 	}
 }
 
