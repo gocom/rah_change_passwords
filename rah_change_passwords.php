@@ -160,7 +160,7 @@ EOF;
 		;
 
 		if(txpMail($email, "[$sitename] ".gTxt('your_new_password'), $message) === false) {
-			echo $theme->announce(gTxt('rah_change_passwords_mailing_failed'), E_ERROR);
+			echo $theme->announce(array(gTxt('rah_change_passwords_mailing_failed'), E_ERROR));
 			return;
 		}
 
