@@ -1,7 +1,7 @@
 #@admin
 #@language fi-fi
 rah_change_passwords => Vaihda salasana
-rah_change_passwords_password => Uusi salasana
+rah_change_passwords_pass => Uusi salasana
 rah_change_passwords_confirm => Salasana uudelleen
 rah_change_passwords_email_pass => Lähetä salasana käyttäjän sähköpostiosoitteeseen
 rah_change_passwords_reset_session => Lopeta käyttäjän aktiivinen sessio
