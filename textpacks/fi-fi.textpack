@@ -13,3 +13,4 @@ rah_change_passwords_unknown_user => Tuntematon käyttäjä.
 rah_change_passwords_update_failed => Tietokannan päivittäminen epäonnistui.
 rah_change_passwords_changed => Salasana vaihdettu.
 rah_change_passwords_mailed => Salasana vaihdettu ja lähetetty.
+rah_change_passwords_mailing_failed => Salasanan lähettäminen epäonnistui.

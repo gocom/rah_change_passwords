@@ -158,8 +158,12 @@ EOF;
 			gTxt('your_password_is').': '.$pass.n.n.
 			gTxt('log_in_at').': '.hu.'textpattern/index.php'
 		;
-		
-		txpMail($email, "[$sitename] ".gTxt('your_new_password'), $message);
+
+		if(txpMail($email, "[$sitename] ".gTxt('your_new_password'), $message) === false) {
+			echo $theme->announce(gTxt('rah_change_passwords_mailing_failed'));
+			return;
+		}
+
 		echo $theme->announce(gTxt('rah_change_passwords_mailed'));
 	}
 }
