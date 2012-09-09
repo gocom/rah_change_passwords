@@ -38,7 +38,7 @@ class rah_change_passwords {
 		
 		global $event;
 		
-		if($event != 'admin') {
+		if($event != 'admin' || !has_privs('admin.edit')) {
 			return;
 		}
 		
