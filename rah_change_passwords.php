@@ -27,8 +27,32 @@ class rah_change_passwords {
 		add_privs('rah_change_passwords', '1');
 		register_callback(array($this, 'pane'), 'author_ui', 'extend_detail_form');
 		register_callback(array($this, 'save'), 'admin', 'author_save');
+		register_callback(array($this, 'remove_newpass'), 'admin_side', 'head_end');
 	}
 	
+	/**
+	 * Removes the Change your password button
+	 */
+	
+	public function remove_newpass() {
+		
+		global $event;
+		
+		if($event != 'admin') {
+			return;
+		}
+		
+		$js = <<<EOF
+			$(document).ready(function() {
+				$('#users_control a').filter(function() {
+					return $(this).attr('href') === '?event=admin&step=new_pass_form';
+				}).remove();
+			});
+EOF;
+
+		echo script_js($js);
+	}
+
 	/**
 	 * Adds options to the Users panel
 	 */
