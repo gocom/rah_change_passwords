@@ -12,5 +12,5 @@ rah_change_passwords_confirm_error => Passwords do not match.
 rah_change_passwords_unknown_user => User not found.
 rah_change_passwords_update_failed => Updating database failed.
 rah_change_passwords_changed => Password changed.
-rah_change_passwords_mailed => Password changed and mailed.
-rah_change_passwords_mailing_failed => Mailing password failed.
+rah_change_passwords_mailed => Password changed and sent to <strong>{email}</strong>.
+rah_change_passwords_mailing_failed => Mailing password to <strong>{email}</strong> failed.
