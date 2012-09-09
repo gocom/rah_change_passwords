@@ -15,19 +15,25 @@
  * http://www.gnu.org/licenses/gpl-2.0.html
  */
 
-	if(@txpinterface == 'admin') {
-		add_privs('rah_change_passwords', '1');
-		register_tab('extensions', 'rah_change_passwords', gTxt('rah_change_passwords'));
-		register_callback(array('rah_change_passwords', 'panes'), 'rah_change_passwords');
-	}
+	new rah_change_passwords();
 
 class rah_change_passwords {
+	
+	/**
+	 * Constructor
+	 */
+	
+	public function __construct() {
+		add_privs('rah_change_passwords', '1');
+		register_tab('extensions', 'rah_change_passwords', gTxt('rah_change_passwords'));
+		register_callback(array($this, 'panes'), 'rah_change_passwords');
+	}
 
 	/**
 	 * Delivers the panes
 	 */
 
-	static public function panes() {
+	public function panes() {
 		global $step;
 		require_privs('rah_change_passwords');
 		
@@ -40,8 +46,7 @@ class rah_change_passwords {
 		if(!$step || !bouncer($step, $steps))
 			$step = 'edit';
 		
-		$pane = new rah_change_passwords();
-		$pane->$step();
+		$this->$step();
 	}
 
 	/**
