@@ -3,7 +3,7 @@
 rah_change_passwords => Change password
 rah_change_passwords_pass => New password
 rah_change_passwords_confirm => Confirm new password
-rah_change_passwords_email_pass => Email the password to the user
+rah_change_passwords_email_pass => Email the password?
 rah_change_passwords_reset_session => End user's active session
 rah_change_passwords_change_password => Change the password
 rah_change_passwords_user_id => User
