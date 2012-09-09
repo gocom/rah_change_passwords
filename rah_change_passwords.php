@@ -140,17 +140,17 @@ EOF;
 				"user_id='".doSlash($user_id)."' LIMIT 0, 1"
 			);
 		
+		if(!$rs) {
+			echo $theme->announce(array(gTxt('rah_change_passwords_unknown_user'), E_ERROR));
+			return;
+		}
+		
 		if(!has_privs('rah_change_passwords') && $txp_user !== $rs['name']) {
 			return;
 		}
 		
 		if($pass !== $confirm) {
 			echo $theme->announce(array(gTxt('rah_change_passwords_confirm_error'), E_ERROR));
-			return;
-		}
-		
-		if(!$rs) {
-			echo $theme->announce(array(gTxt('rah_change_passwords_unknown_user'), E_ERROR));
 			return;
 		}
 		
