@@ -9,9 +9,18 @@ p. Minimum requirements:
 * Textpattern 4.5.0 or newer.
 * PHP 5 or newer.
 
-h2. Installation and usage
+h2. Installing
 
-p. The general behavior stands: paste plugin code to the plugin installer textarea and run the automatic setup. Then just activate the plugin and you are ready to change passwords via admin page under Extensions-tab.
+p. Rah_change_passwords' installation follows the standard plugin installation steps.
+
+# Download the plugin installation code.
+# Copy and paste the installation code into the _Install plugin_ box of your Textpattern Plugin pane.
+# Run the automated setup.
+# After the setup is done, activate the plugin. Done.
+
+h2. Usage
+
+p. Rah_change_password will add extra options to the "Users":http://textpattern.net/wiki/index.php?title=Users panel's editor. When logged in as a "Publisher":http://textpattern.net/wiki/index.php?title=User_Roles_and_Permissions, you will see options to change the password when editing any user account. These added extra options include way to reset login session for others, to change and optionally email passwords.
 
 h2. Changelog
 
