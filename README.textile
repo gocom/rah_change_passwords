@@ -2,17 +2,12 @@ h1. rah_change_passwords
 
 p. A tiny "Textpattern":http://textpattern.com plugin to manually reset and change passwords for you and for your mates from tidy admin panel. The main difference to TXP's build in feature is that you, or your co-workers, do not need to receive an email contain the auto-generated password. Instead, you can change passwords to anything you want. Also adds an option to reset the current session.
 
-h2. List of features
-
-* Change your and your fellow users' passwords to anything you desire.
-* Simple admin page under _TXP / Extensions / Change Passwords_.
-
 h2. Requirements
 
 p. Minimum requirements:
 
 * Textpattern 4.5.0 or newer.
-* PHP5 or newer.
+* PHP 5 or newer.
 
 h2. Installation and usage
 
