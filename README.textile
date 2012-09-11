@@ -23,12 +23,12 @@ p. Rah_change_password will add extra options to the "Users":http://textpattern.
 
 h2. Changelog
 
-h3. Version 0.9 - upcoming
+h3. Version 1.0 - upcoming
 
 * Added: Finnish translation.
 * Changed: Removed embedded language strings and moved them to textpacks.
 * Changed: Now uses class methods, and requires PHP 5.
-* Changed: Integrated with the User Editor located at the Users panel.
+* Changed: Integrated with the native user editor located at the Users panel.
 * Now requires Textpattern 4.5.0 or newer.
 
 h3. Version 0.8 - 2011/11/22
