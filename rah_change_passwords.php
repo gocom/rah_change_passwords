@@ -139,7 +139,6 @@ EOF;
 			);
 		
 		if(!$rs) {
-			echo $theme->announce(array(gTxt('rah_change_passwords_unknown_user'), E_ERROR));
 			return;
 		}
 		
