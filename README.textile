@@ -1,6 +1,6 @@
 h1. rah_change_passwords
 
-p. A tiny "Textpattern":http://textpattern.com plugin to manually reset and change passwords for you and for your mates from tidy admin panel. The main difference to TXP's build in feature is that you, or your co-workers, do not need to receive an email contain the auto-generated password. Instead, you can change passwords to anything you want. Also adds an option to reset the current session.
+p. A "Textpattern":http://textpattern.com plugin adds options to "Users":http://textpattern.net/wiki/index.php?title=Users panel that allow freely changing any user's password and resetting login sessions. The main difference to Textpattern built in password resetting feature is that you as a "Publisher":http://textpattern.net/wiki/index.php?title=User_Roles_and_Permissions can change any user's passwords to anything you want. As such, users do not need to receive emails containing any automatically generated passwords or do password restoring themselves.
 
 h2. Requirements
 
@@ -19,16 +19,16 @@ p. Rah_change_passwords' installation follows the standard plugin installation s
 
 h2. Usage
 
-p. Rah_change_password will add extra options to the "Users":http://textpattern.net/wiki/index.php?title=Users panel's editor. When logged in as a "Publisher":http://textpattern.net/wiki/index.php?title=User_Roles_and_Permissions, you will see options to change the password when editing any user account. These added extra options include way to reset login session for others, to change and optionally email passwords.
+p. Rah_change_password will add extra options to the "Users":http://textpattern.net/wiki/index.php?title=Users panel's editor. When logged in with a "Publisher":http://textpattern.net/wiki/index.php?title=User_Roles_and_Permissions account, you will see options to change the password when editing any user account. These added extra options include a way to reset login sessions, to change and optionally email passwords.
 
 h2. Changelog
 
 h3. Version 1.0 - upcoming
 
 * Added: Finnish translation.
+* Changed: Integrates with the native user editor located at the Users panel.
 * Changed: Removed embedded language strings and moved them to textpacks.
 * Changed: Now uses class methods, and requires PHP 5.
-* Changed: Integrated with the native user editor located at the Users panel.
 * Now requires Textpattern 4.5.0 or newer.
 
 h3. Version 0.8 - 2011/11/22
