@@ -127,7 +127,7 @@ EOF;
 			$$name = ps(__CLASS__.'_'.$name);
 		}
 		
-		if(!$user_id || !$pass) {
+		if(!$user_id) {
 			return;
 		}
 		
@@ -138,16 +138,7 @@ EOF;
 				"user_id='".doSlash($user_id)."' LIMIT 0, 1"
 			);
 		
-		if(!$rs) {
-			return;
-		}
-		
-		if(!has_privs('rah_change_passwords') && $txp_user !== $rs['name']) {
-			return;
-		}
-		
-		if($pass !== $confirm) {
-			echo $theme->announce(array(gTxt('rah_change_passwords_confirm_error'), E_ERROR));
+		if(!$rs || (!has_privs('rah_change_passwords') && $txp_user !== $rs['name'])) {
 			return;
 		}
 		
@@ -157,8 +148,20 @@ EOF;
 			$sql[] = "nonce='".doSlash(md5(uniqid(mt_rand(), TRUE)))."'";
 		}
 		
-		include_once txpath.'/include/txp_auth.php';
-		$sql[] = "pass='".doSlash(txp_hash_password($pass))."'";
+		if($pass) {
+		
+			if($pass !== $confirm) {
+				echo $theme->announce(array(gTxt('rah_change_passwords_confirm_error'), E_ERROR));
+				return;
+			}
+			
+			include_once txpath.'/include/txp_auth.php';
+			$sql[] = "pass='".doSlash(txp_hash_password($pass))."'";
+		}
+		
+		if(!$sql) {
+			return;
+		}
 		
 		if(
 			safe_update(
@@ -168,6 +171,10 @@ EOF;
 			) === false
 		) {
 			echo $theme->announce(array(gTxt('rah_change_passwords_update_failed'), E_ERROR));
+			return;
+		}
+		
+		if(!$pass) {
 			return;
 		}
 		
