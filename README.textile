@@ -27,6 +27,10 @@ p. Rah_change_password will add extra options to the "Users":http://textpattern.
 
 h2. Changelog
 
+h3. Version 1.0.1 - upcoming
+
+* Added: Support links to the help file.
+
 h3. Version 1.0 - 2012/09/19
 
 * Added: Finnish translation.
