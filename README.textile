@@ -1,6 +1,8 @@
 h1. rah_change_passwords
 
-p. A "Textpattern":http://textpattern.com plugin adds options to "Users":http://textpattern.net/wiki/index.php?title=Users panel that allow freely changing any user's password and resetting login sessions. The main difference to Textpattern built in password resetting feature is that you as a "Publisher":http://textpattern.net/wiki/index.php?title=User_Roles_and_Permissions can change any user's passwords to anything you want. As such, users do not need to receive emails containing any automatically generated passwords or do password restoring themselves.
+p. Rah_change_passwords is a "Textpattern":http://textpattern.com plugin that allows "Publishers":http://textpattern.net/wiki/index.php?title=User_Roles_and_Permissions to freely change any user's password and resetting login sessions directly from the "Users":http://textpattern.net/wiki/index.php?title=Users panel.
+
+p. The main difference to Textpattern CMS' built in password resetting feature is that you as a Publisher, and the site's main administrator, can change any user's passwords to anything you want. As such, users do not need to receive emails containing automatically generated passwords or do password restoring themselves.
 
 h2. Requirements
 
@@ -29,6 +31,7 @@ h3. Version 1.0 - upcoming
 * Changed: Integrates with the native user editor located at the Users panel.
 * Changed: Removed embedded language strings and moved them to textpacks.
 * Changed: Now uses class methods, and requires PHP 5.
+* Improved: Textpattern 4.5.0 compatibility, look and feel. 
 * Now requires Textpattern 4.5.0 or newer.
 
 h3. Version 0.8 - 2011/11/22
