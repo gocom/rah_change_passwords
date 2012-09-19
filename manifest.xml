@@ -3,7 +3,7 @@
 	<name>rah_change_passwords</name>
 	<description>Maintain and change user passwords</description>
 
-	<version>1.0</version>
+	<version>1.0.1</version>
 	<type>3</type>
 
 	<author>Jukka Svahn</author>
