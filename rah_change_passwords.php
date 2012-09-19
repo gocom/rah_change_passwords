@@ -29,7 +29,7 @@ class rah_change_passwords {
 	}
 	
 	/**
-	 * Removes the Change your password button
+	 * Removes the "Change your password" button
 	 */
 	
 	public function remove_newpass() {
