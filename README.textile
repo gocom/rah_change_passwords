@@ -1,5 +1,7 @@
 h1. rah_change_passwords
 
+p. "Project page":http://rahforum.biz/plugins/rah_change_passwords | "Twitter":http://twitter.com/gocom | "GitHub":https://github.com/gocom/rah_change_passwords | "Support forum":http://forum.textpattern.com/viewtopic.php?id=28696 | "Donate":http://rahforum.biz/donate/rah_change_passwords
+
 p. Rah_change_passwords is a "Textpattern":http://textpattern.com plugin that allows "Publishers":http://textpattern.net/wiki/index.php?title=User_Roles_and_Permissions to freely change any user's password and resetting login sessions directly from the "Users":http://textpattern.net/wiki/index.php?title=Users panel.
 
 p. The main difference to Textpattern CMS' built in password resetting feature is that you as a Publisher, and the site's main administrator, can change any user's passwords to anything you want. As such, users do not need to receive emails containing automatically generated passwords or do password restoring themselves.
