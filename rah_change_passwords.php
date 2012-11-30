@@ -181,7 +181,6 @@ EOF;
 				return;
 			}
 
-			include_once txpath.'/include/txp_auth.php';
 			$sql[] = "pass='".doSlash(txp_hash_password($pass))."'";
 		}
 
