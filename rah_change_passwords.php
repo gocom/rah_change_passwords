@@ -71,7 +71,7 @@ EOF;
 
 	public function pane($event, $step, $void, $r)
 	{
-		global $theme, $txp_user;
+		global $txp_user;
 
 		if (!$r || !isset($r['user_id']))
 		{
@@ -83,7 +83,7 @@ EOF;
 			return;
 		}
 
-		$msg = escape_js($theme->announce_async(array(gTxt('rah_change_passwords_confirm_error'), E_ERROR)));
+		$msg = escape_js(announce(gTxt('rah_change_passwords_confirm_error'), E_ERROR, ANNOUNCE_ASYNC));
 
 		$js = <<<EOF
 			$(document).ready(function ()
@@ -139,7 +139,7 @@ EOF;
 
 	public function save()
 	{
-		global $sitename, $txp_user, $theme;
+		global $sitename, $txp_user;
 
 		extract(doSlash(psa(array(
 			'user_id',
@@ -177,7 +177,7 @@ EOF;
 		{
 			if ($pass !== $confirm)
 			{
-				echo $theme->announce(array(gTxt('rah_change_passwords_confirm_error'), E_ERROR));
+				echo announce(gTxt('rah_change_passwords_confirm_error'), E_ERROR);
 				return;
 			}
 
@@ -198,7 +198,7 @@ EOF;
 			) === false
 		)
 		{
-			echo $theme->announce(array(gTxt('rah_change_passwords_update_failed'), E_ERROR));
+			echo announce(gTxt('rah_change_passwords_update_failed'), E_ERROR);
 			return;
 		}
 
@@ -209,7 +209,7 @@ EOF;
 
 		if (!$email_pass)
 		{
-			echo $theme->announce(gTxt('rah_change_passwords_changed'));
+			echo announce(gTxt('rah_change_passwords_changed'));
 			return;
 		}
 
@@ -222,11 +222,11 @@ EOF;
 
 		if (txpMail($email, "[$sitename] ".gTxt('your_new_password'), $message) === false)
 		{
-			echo $theme->announce(array(gTxt('rah_change_passwords_mailing_failed', array('{email}' => $email)), E_ERROR));
+			echo announce(gTxt('rah_change_passwords_mailing_failed', array('{email}' => $email)), E_ERROR);
 			return;
 		}
 
-		echo $theme->announce(gTxt('rah_change_passwords_mailed', array('{email}' => $email)));
+		echo announce(gTxt('rah_change_passwords_mailed', array('{email}' => $email)));
 	}
 }
 
