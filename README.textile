@@ -10,7 +10,7 @@ h2. Requirements
 
 p. Minimum requirements:
 
-* Textpattern 4.5.0 or newer.
+* Textpattern 4.6.0-dev.
 
 h2. Installing
 
@@ -26,6 +26,11 @@ h2. Usage
 p. Rah_change_password will add extra options to the "Users":http://textpattern.net/wiki/index.php?title=Users panel's editor. When logged in with a "Publisher":http://textpattern.net/wiki/index.php?title=User_Roles_and_Permissions account, you will see options to change the password when editing any user account. These added extra options include a way to reset login sessions, to change and optionally email passwords.
 
 h2. Changelog
+
+h3. Version 1.1 - upcoming
+
+* Added: Uses new Announcement API.
+* Now requires Textpattern 4.6.0 or newer.
 
 h3. Version 1.0.1 - 2012/09/19
 
