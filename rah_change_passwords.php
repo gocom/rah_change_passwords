@@ -3,22 +3,26 @@
 /**
  * Rah_change_passwords plugin for Textpattern CMS.
  *
- * @author Jukka Svahn
- * @date 2008-
+ * @author  Jukka Svahn
+ * @date    2008-
  * @license GNU GPLv2
- * @link http://rahforum.biz/plugins/rah_change_passwords
+ * @link    http://rahforum.biz/plugins/rah_change_passwords
  *
- * Copyright (C) 2012 Jukka Svahn <http://rahforum.biz>
+ * Copyright (C) 2012 Jukka Svahn http://rahforum.biz
  * Licensed under GNU Genral Public License version 2
  * http://www.gnu.org/licenses/gpl-2.0.html
  */
 
 	new rah_change_passwords();
 
+/**
+ * The plugin class.
+ */
+
 class rah_change_passwords
 {
 	/**
-	 * Constructor
+	 * Constructor.
 	 */
 
 	public function __construct()
@@ -30,7 +34,7 @@ class rah_change_passwords
 	}
 
 	/**
-	 * Removes the "Change your password" button
+	 * Removes the "Change your password" button.
 	 */
 
 	public function remove_newpass()
@@ -54,7 +58,13 @@ EOF;
 	}
 
 	/**
-	 * Adds options to the Users panel
+	 * Adds options to the Users panel.
+	 *
+	 * @param  string $event The event
+	 * @param  string $step  The step
+	 * @param  mixed  $void  Not used
+	 * @param  array  $r     The form data
+	 * @return string HTML
 	 */
 
 	public function pane($event, $step, $void, $r)
