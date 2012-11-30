@@ -116,7 +116,7 @@ EOF;
 EOF;
 
 		return 
-			tag(gTxt('rah_change_passwords'), 'h3').n.
+			hed(gTxt('rah_change_passwords'), 3).n.
 
 			inputLabel(__CLASS__.'_pass', fInput('password', __CLASS__.'_pass', '', '', '', '', INPUT_REGULAR, '', __CLASS__.'_pass'), __CLASS__.'_pass').n.
 
