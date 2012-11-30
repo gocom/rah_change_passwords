@@ -47,8 +47,10 @@ class rah_change_passwords
 		}
 
 		$js = <<<EOF
-			$(document).ready(function() {
-				$('#users_control a').filter(function() {
+			$(document).ready(function ()
+			{
+				$('#users_control a').filter(function ()
+				{
 					return $(this).attr('href') === '?event=admin&step=new_pass_form';
 				}).remove();
 			});
