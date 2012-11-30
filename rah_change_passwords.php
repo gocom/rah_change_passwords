@@ -116,16 +116,16 @@ EOF;
 EOF;
 
 		return 
-			hed(gTxt('rah_change_passwords'), 3).n.
+			hed(gTxt('rah_change_passwords'), 3).
 
-			inputLabel(__CLASS__.'_pass', fInput('password', __CLASS__.'_pass', '', '', '', '', INPUT_REGULAR, '', __CLASS__.'_pass'), __CLASS__.'_pass').n.
+			inputLabel(__CLASS__.'_pass', fInput('password', __CLASS__.'_pass', '', '', '', '', INPUT_REGULAR, '', __CLASS__.'_pass'), __CLASS__.'_pass').
 
-			inputLabel(__CLASS__.'_confirm', fInput('password', __CLASS__.'_confirm', '', '', '', '', INPUT_REGULAR, '', __CLASS__.'_confirm'), __CLASS__.'_confirm').n.
+			inputLabel(__CLASS__.'_confirm', fInput('password', __CLASS__.'_confirm', '', '', '', '', INPUT_REGULAR, '', __CLASS__.'_confirm'), __CLASS__.'_confirm').
 
-			inputLabel(__CLASS__.'_email_pass', yesnoradio(__CLASS__.'_email_pass', 0, '', __CLASS__.'_email_pass'), '', __CLASS__.'_email_pass').n.
+			inputLabel(__CLASS__.'_email_pass', yesnoradio(__CLASS__.'_email_pass', 0, '', __CLASS__.'_email_pass'), '', __CLASS__.'_email_pass').
 
 			($txp_user !== $r['name'] ?
-				inputLabel(__CLASS__.'_reset_session', yesnoradio(__CLASS__.'_reset_session', 0, '', __CLASS__.'_reset_session'), '', __CLASS__.'_reset_session').n : ''
+				inputLabel(__CLASS__.'_reset_session', yesnoradio(__CLASS__.'_reset_session', 0, '', __CLASS__.'_reset_session'), '', __CLASS__.'_reset_session') : ''
 			).
 
 			script_js($js);
