@@ -1,7 +1,7 @@
 {
     "name": "rah/rah_change_passwords",
     "description": "Manage Textpattern CMS user account passwords",
-    "keywords": ["textpattern", "plugin", "cache", "memcached", "memory"],
+    "keywords": ["textpattern", "plugin", "cache", "password", "changer"],
     "homepage": "https://github.com/gocom/rah_change_passwords",
     "license": "GPL-2.0",
     "type": "textpattern-plugin",
