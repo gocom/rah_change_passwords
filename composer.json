@@ -1,0 +1,30 @@
+{
+    "name": "rah/rah_change_passwords",
+    "description": "Manage Textpattern CMS user account passwords",
+    "keywords": ["textpattern", "plugin", "cache", "memcached", "memory"],
+    "homepage": "https://github.com/gocom/rah_change_passwords",
+    "license": "GPL-2.0",
+    "type": "textpattern-plugin",
+    "authors": [
+        {
+            "name": "Jukka Svahn",
+            "homepage": "https://rahforum.biz",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/gocom/rah_change_passwords/issues",
+        "source": "https://github.com/gocom/rah_change_passwords"
+    },
+    "require": {
+        "php": ">=5.6.0",
+        "textpattern/lock": ">=4.6.0",
+        "textpattern/installer": "*"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "3.*"
+    },
+    "scripts": {
+        "cs": "./vendor/bin/phpcs"
+    }
+}

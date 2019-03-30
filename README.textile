@@ -1,29 +1,20 @@
 h1. rah_change_passwords
 
-p. "Project page":http://rahforum.biz/plugins/rah_change_passwords | "Twitter":http://twitter.com/gocom | "GitHub":https://github.com/gocom/rah_change_passwords | "Support forum":http://forum.textpattern.com/viewtopic.php?id=28696 | "Donate":http://rahforum.biz/donate/rah_change_passwords
+"Packagist":https://packagist.org/packages/rah/rah_change_passwords | "Issues":https://github.com/gocom/rah_change_passwords/issues | "Donate":http://rahforum.biz/donate/rah_change_passwords
 
-p. Rah_change_passwords is a "Textpattern":http://textpattern.com plugin that allows "Publishers":http://textpattern.net/wiki/index.php?title=User_Roles_and_Permissions to freely change any user's password and resetting login sessions directly from the "Users":http://textpattern.net/wiki/index.php?title=Users panel.
+Rah_change_passwords is a "Textpattern CMS":https://textpattern.com plugin that allows "Publishers":https://docs.textpattern.com/administration/user-roles-and-privileges to freely change any user's password and resetting login sessions directly from the "Users":https://docs.textpattern.com/administration/users-panel panel.
 
-p. The main difference to Textpattern CMS' built in password resetting feature is that you as a Publisher, and the site's main administrator, can change any user's passwords to anything you want. As such, users do not need to receive emails containing automatically generated passwords or do password restoring themselves.
+The main difference to Textpattern CMS' built in password resetting feature is that you as a Publisher, and the site's main administrator, can change any user's passwords to anything you want. As such, users do not need to receive emails containing automatically generated passwords or do password restoring themselves.
 
-h2. Requirements
+h2. Install
 
-p. Minimum requirements:
+Using "Composer":https://getcomposer.org:
 
-* Textpattern 4.6.0-dev.
-
-h2. Installing
-
-p. Rah_change_passwords' installation follows the standard plugin installation steps.
-
-# Download the plugin installation code.
-# Copy and paste the installation code into the _Install plugin_ box of your Textpattern Plugin pane.
-# Run the automated setup.
-# After the setup is done, activate the plugin. Done.
+bc. $ composer require rah/rah_change_passwords
 
 h2. Usage
 
-p. Rah_change_password will add extra options to the "Users":http://textpattern.net/wiki/index.php?title=Users panel's editor. When logged in with a "Publisher":http://textpattern.net/wiki/index.php?title=User_Roles_and_Permissions account, you will see options to change the password when editing any user account. These added extra options include a way to reset login sessions, to change and optionally email passwords.
+Rah_change_password adds extra options to the "user editor":https://docs.textpattern.com/administration/users-panel. When logged in with a "Publisher":http://textpattern.net/wiki/index.php?title=User_Roles_and_Permissions account, you will see options to change the password when editing any user account. These added extra options include a way to reset login sessions, to change and optionally email passwords.
 
 h2. Changelog
 
@@ -42,7 +33,7 @@ h3. Version 1.0 - 2012/09/19
 * Changed: Integrates with the native user editor located at the Users panel.
 * Changed: Removed embedded language strings and moved them to textpacks.
 * Changed: Now uses class methods, and requires PHP 5.
-* Improved: Textpattern 4.5.0 compatibility, look and feel. 
+* Improved: Textpattern 4.5.0 compatibility, look and feel.
 * Now requires Textpattern 4.5.0 or newer.
 
 h3. Version 0.8 - 2011/11/22
