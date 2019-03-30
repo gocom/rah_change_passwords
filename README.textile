@@ -2,7 +2,7 @@ h1. rah_change_passwords
 
 "Packagist":https://packagist.org/packages/rah/rah_change_passwords | "Issues":https://github.com/gocom/rah_change_passwords/issues | "Donate":http://rahforum.biz/donate/rah_change_passwords
 
-Rah_change_passwords is a "Textpattern CMS":https://textpattern.com plugin that allows "Publishers":https://docs.textpattern.com/administration/user-roles-and-privileges to freely change any user's password and resetting login sessions directly from the "Users":https://docs.textpattern.com/administration/users-panel panel. The main difference to Textpattern CMS' built in password resetting feature is that you as a Publisher, and the site's main administrator, can change any user's passwords to anything you want. As such, users do not need to receive emails containing automatically generated passwords or do password restoring themselves.
+Rah_change_password is a "Textpattern CMS":https://textpattern.com plugin that adds extra options to the "user editor":https://docs.textpattern.com/administration/users-panel. When logged in with a "Publisher":https://docs.textpattern.com/administration/user-roles-and-privileges account, you will see options to change the password when editing any user account. These added extra options include a way to reset login sessions, to change and optionally email passwords.
 
 h2. Install
 
@@ -10,13 +10,9 @@ Using "Composer":https://getcomposer.org:
 
 bc. $ composer require rah/rah_change_passwords
 
-h2. Usage
-
-Rah_change_password adds extra options to the "user editor":https://docs.textpattern.com/administration/users-panel. When logged in with a "Publisher":http://textpattern.net/wiki/index.php?title=User_Roles_and_Permissions account, you will see options to change the password when editing any user account. These added extra options include a way to reset login sessions, to change and optionally email passwords.
-
 h2. Changelog
 
-h3. Version 1.1 - upcoming
+h3. Version 1.1.0 - upcoming
 
 * Added: Uses new Announcement API.
 * Now requires Textpattern 4.6.0 or newer.
