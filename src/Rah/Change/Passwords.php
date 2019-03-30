@@ -34,13 +34,13 @@ final class Rah_Change_Passwords
 		add_privs('rah_change_passwords', '1');
 		register_callback([$this, 'pane'], 'author_ui', 'extend_detail_form');
 		register_callback([$this, 'save'], 'admin', 'author_save');
-		register_callback([$this, 'remove_newpass'], 'admin_side', 'head_end');
+		register_callback([$this, 'head'], 'admin_side', 'head_end');
 	}
 
 	/**
 	 * Removes the "Change your password" button.
 	 */
-	public function remove_newpass()
+	public function head()
 	{
 		global $event;
 
