@@ -2,9 +2,7 @@ h1. rah_change_passwords
 
 "Packagist":https://packagist.org/packages/rah/rah_change_passwords | "Issues":https://github.com/gocom/rah_change_passwords/issues | "Donate":http://rahforum.biz/donate/rah_change_passwords
 
-Rah_change_passwords is a "Textpattern CMS":https://textpattern.com plugin that allows "Publishers":https://docs.textpattern.com/administration/user-roles-and-privileges to freely change any user's password and resetting login sessions directly from the "Users":https://docs.textpattern.com/administration/users-panel panel.
-
-The main difference to Textpattern CMS' built in password resetting feature is that you as a Publisher, and the site's main administrator, can change any user's passwords to anything you want. As such, users do not need to receive emails containing automatically generated passwords or do password restoring themselves.
+Rah_change_passwords is a "Textpattern CMS":https://textpattern.com plugin that allows "Publishers":https://docs.textpattern.com/administration/user-roles-and-privileges to freely change any user's password and resetting login sessions directly from the "Users":https://docs.textpattern.com/administration/users-panel panel. The main difference to Textpattern CMS' built in password resetting feature is that you as a Publisher, and the site's main administrator, can change any user's passwords to anything you want. As such, users do not need to receive emails containing automatically generated passwords or do password restoring themselves.
 
 h2. Install
 
