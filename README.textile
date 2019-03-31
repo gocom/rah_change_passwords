@@ -14,6 +14,7 @@ h2. Changelog
 
 h3. Version 1.1.0 - upcoming
 
+* Fixed: Textpattern 4.6.0 compatibility.
 * Added: Uses new Announcement API.
 * Now requires Textpattern 4.6.0 or newer.
 

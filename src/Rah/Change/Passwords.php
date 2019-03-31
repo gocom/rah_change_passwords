@@ -34,29 +34,6 @@ final class Rah_Change_Passwords
         add_privs('rah_change_passwords', '1');
         register_callback([$this, 'pane'], 'author_ui', 'extend_detail_form');
         register_callback([$this, 'save'], 'admin', 'author_save');
-        register_callback([$this, 'head'], 'admin_side', 'head_end');
-    }
-
-    /**
-     * Removes the "Change your password" button.
-     */
-    public function head()
-    {
-        global $event;
-
-        if ($event !== 'admin' || !has_privs('admin.edit')) {
-            return;
-        }
-
-        $js = <<<EOF
-            $(document).ready(function () {
-                $('#users_control a').filter(function () {
-                    return $(this).attr('href') === '?event=admin&step=new_pass_form';
-                }).remove();
-            });
-EOF;
-
-        echo script_js($js);
     }
 
     /**
@@ -79,36 +56,6 @@ EOF;
         if (!has_privs('rah_change_passwords') && $txp_user !== $r['name']) {
             return;
         }
-
-        $msg = escape_js(announce(gTxt('rah_change_passwords_confirm_error'), E_ERROR, ANNOUNCE_ASYNC));
-
-        $js = <<<EOF
-            $(document).ready(function () {
-                $('#user_edit, #rah_change_passwords_confirm, #rah_change_passwords_confirm_pass')
-                    .attr('autocomplete', 'off');
-
-                function validate_pass()
-                {
-                    var form = {
-                        pass : $('#rah_change_passwords_pass').val(),
-                        conf : $('#rah_change_passwords_confirm').val()
-                    };
-
-                    if (form.pass === '' && form.conf === '') {
-                        return true;
-                    }
-
-                    return (form.pass === form.conf);
-                }
-
-                $('#user_edit').submit(function () {
-                    if (!validate_pass()) {
-                        $.globalEval("{$msg}");
-                        return false;
-                    }
-                });
-            });
-EOF;
 
         return
             hed(gTxt('rah_change_passwords'), 3).
@@ -169,9 +116,7 @@ EOF;
                     '',
                     'rah_change_passwords_reset_session'
                 ) : ''
-            ).
-
-            script_js($js);
+            );
     }
 
     /**
@@ -193,20 +138,14 @@ EOF;
             return;
         }
 
-        $rs = safe_row(
+        $user = safe_row(
             'email, name',
             'txp_users',
-            "user_id='".doSlash($user_id)."' limit 0, 1"
+            "user_id='$user_id' limit 0, 1"
         );
 
-        if (!$rs || (!has_privs('rah_change_passwords') && $txp_user !== $rs['name'])) {
+        if (!$user || (!has_privs('rah_change_passwords') && $txp_user !== $user['name'])) {
             return;
-        }
-
-        $sql = [];
-
-        if ($reset_session && $txp_user !== $rs['name']) {
-            $sql[] = "nonce='".doSlash(md5(uniqid(mt_rand(), true)))."'";
         }
 
         if ($pass) {
@@ -215,20 +154,17 @@ EOF;
                 return;
             }
 
-            $sql[] = "pass='".doSlash(txp_hash_password($pass))."'";
+            if (change_user_password($user['name'], $pass) === false) {
+                echo announce(gTxt('rah_change_passwords_update_failed'), E_ERROR);
+                return;
+            }
         }
 
-        if (!$sql) {
-            return;
-        }
-
-        if (safe_update(
-            'txp_users',
-            implode(',', $sql),
-            "user_id='".doSlash($user_id)."'"
-        ) === false) {
-            echo announce(gTxt('rah_change_passwords_update_failed'), E_ERROR);
-            return;
+        if ($reset_session && $txp_user !== $user['name']) {
+            if (update_user($user['name'], null, null, ['nonce' => $this->getSessionId()]) === false) {
+                echo announce(gTxt('rah_change_passwords_update_failed'), E_ERROR);
+                return;
+            }
         }
 
         if (!$pass) {
@@ -240,18 +176,26 @@ EOF;
             return;
         }
 
-        extract($rs);
-
         $message =
-            gTxt('greeting').' '.$name.','.n.n.
+            gTxt('greeting').' '.$user['name'].','.n.n.
             gTxt('your_password_is').': '.$pass.n.n.
             gTxt('log_in_at').': '.hu.'textpattern/index.php';
 
-        if (txpMail($email, "[$sitename] ".gTxt('your_new_password'), $message) === false) {
-            echo announce(gTxt('rah_change_passwords_mailing_failed', ['{email}' => $email]), E_ERROR);
+        if (txpMail($user['email'], "[$sitename] ".gTxt('your_new_password'), $message) === false) {
+            echo announce(gTxt('rah_change_passwords_mailing_failed', ['{email}' => $user['email']]), E_ERROR);
             return;
         }
 
-        echo announce(gTxt('rah_change_passwords_mailed', ['{email}' => $email]));
+        echo announce(gTxt('rah_change_passwords_mailed', ['{email}' => $user['email']]));
+    }
+
+    /**
+     * Gets a new session key.
+     *
+     * @return string
+     */
+    private function getSessionId()
+    {
+        return md5(uniqid(mt_rand(), true));
     }
 }
