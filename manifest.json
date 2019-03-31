@@ -1,7 +1,7 @@
 {
     "name": "rah_change_passwords",
     "description": "Manage Textpattern CMS user account passwords",
-    "version": "1.0.1",
+    "version": "1.1.0",
     "type": 3,
     "author": "Jukka Svahn",
     "author_uri": "https://rahforum.biz",

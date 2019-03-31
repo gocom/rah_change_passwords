@@ -12,7 +12,7 @@ bc. $ composer require rah/rah_change_passwords
 
 h2. Changelog
 
-h3. Version 1.1.0 - upcoming
+h3. Version 1.1.0 - 2019/04/01
 
 * Fixed: Textpattern 4.6.0 compatibility.
 * Added: Uses new Announcement API.
