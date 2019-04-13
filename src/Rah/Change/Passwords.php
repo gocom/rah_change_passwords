@@ -45,16 +45,16 @@ final class Rah_Change_Passwords
      * @param  array  $r     The form data
      * @return string HTML
      */
-    public function pane($event, $step, $void, $r)
+    public function pane($event, $step, $void, $r): string
     {
         global $txp_user;
 
         if (!$r || !isset($r['user_id'])) {
-            return;
+            return '';
         }
 
         if (!has_privs('rah_change_passwords') && $txp_user !== $r['name']) {
-            return;
+            return '';
         }
 
         return
@@ -110,7 +110,7 @@ final class Rah_Change_Passwords
     /**
      * Changes a password
      */
-    public function save()
+    public function save(): void
     {
         global $sitename, $txp_user;
 
@@ -167,7 +167,7 @@ final class Rah_Change_Passwords
      *
      * @return string
      */
-    private function getSessionId()
+    private function getSessionId(): string
     {
         return md5(uniqid(mt_rand(), true));
     }
