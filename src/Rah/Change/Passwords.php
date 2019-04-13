@@ -92,18 +92,6 @@ final class Rah_Change_Passwords
                 'rah_change_passwords_confirm'
             ).
 
-            inputLabel(
-                'rah_change_passwords_email_pass',
-                yesnoradio(
-                    'rah_change_passwords_email_pass',
-                    0,
-                    '',
-                    'rah_change_passwords_email_pass'
-                ),
-                '',
-                'rah_change_passwords_email_pass'
-            ).
-
             ($txp_user !== $r['name'] ?
                 inputLabel(
                     'rah_change_passwords_reset_session',
@@ -130,7 +118,7 @@ final class Rah_Change_Passwords
             'user_id',
         ])));
 
-        foreach (['pass', 'confirm', 'email_pass', 'reset_session'] as $name) {
+        foreach (['pass', 'confirm', 'reset_session'] as $name) {
             $$name = ps('rah_change_passwords_'.$name);
         }
 
@@ -139,7 +127,7 @@ final class Rah_Change_Passwords
         }
 
         $user = safe_row(
-            'email, name',
+            'name',
             'txp_users',
             "user_id='$user_id' limit 0, 1"
         );
@@ -171,22 +159,7 @@ final class Rah_Change_Passwords
             return;
         }
 
-        if (!$email_pass) {
-            echo announce(gTxt('rah_change_passwords_changed'));
-            return;
-        }
-
-        $message =
-            gTxt('greeting').' '.$user['name'].','.n.n.
-            gTxt('your_password_is').': '.$pass.n.n.
-            gTxt('log_in_at').': '.hu.'textpattern/index.php';
-
-        if (txpMail($user['email'], "[$sitename] ".gTxt('your_new_password'), $message) === false) {
-            echo announce(gTxt('rah_change_passwords_mailing_failed', ['{email}' => $user['email']]), E_ERROR);
-            return;
-        }
-
-        echo announce(gTxt('rah_change_passwords_mailed', ['{email}' => $user['email']]));
+        echo announce(gTxt('rah_change_passwords_changed'));
     }
 
     /**

@@ -8,5 +8,3 @@ rah_change_passwords_reset_session => Réinitialiser la session utilisateur ?
 rah_change_passwords_confirm_error => Les mots de passe ne correspondent pas.
 rah_change_passwords_update_failed => Echec d'enregistrement des modifications.
 rah_change_passwords_changed => Mot de passe modifié.
-rah_change_passwords_mailed => Mot de passe modifié et envoyé à l'adresse <strong>{email}</strong>.
-rah_change_passwords_mailing_failed => Echec d'envoi du mot de passe à l'adresse <strong>{email}</strong>.
