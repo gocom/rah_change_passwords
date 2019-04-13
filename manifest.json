@@ -4,7 +4,7 @@
     "version": "1.1.0",
     "type": 3,
     "author": "Jukka Svahn",
-    "author_uri": "https://rahforum.biz",
+    "author_uri": "https://github.com/gocom/rah_change_passwords",
     "order": 5,
     "flags": 0,
     "help": {"file" : ["./README.textile"]},
