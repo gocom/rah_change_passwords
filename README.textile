@@ -1,6 +1,6 @@
 h1. rah_change_passwords
 
-"Packagist":https://packagist.org/packages/rah/rah_change_passwords | "Issues":https://github.com/gocom/rah_change_passwords/issues | "Donate":http://rahforum.biz/donate/rah_change_passwords
+"Packagist":https://packagist.org/packages/rah/rah_change_passwords | "Issues":https://github.com/gocom/rah_change_passwords/issues | "Donate":https://rahforum.biz/donate/rah_change_passwords
 
 Rah_change_password is a "Textpattern CMS":https://textpattern.com plugin that adds extra options to the "user editor":https://docs.textpattern.com/administration/users-panel. When logged in with a "publisher":https://docs.textpattern.com/administration/user-roles-and-privileges account, you will see options to change the password when editing any user account.
 
@@ -47,7 +47,7 @@ h3. Version 0.6 - 2011/06/18
 
 * Fixed: Changed "Yes" and "No" to language strings.
 * Added: Now takes advantage of CSRF protection introduced in Textpattern v4.4.1.
-* Dropped backwards compatibility layer used from v0.4 to 0.5. Users using older Textpattern version can still keep using "older versions of rah_change_passwords":http://rahforum.biz/plugins/rah_change_passwords/versions.
+* Dropped backwards compatibility layer used from v0.4 to 0.5.
 * Now requires Textpattern version 4.4.1 or newer.
 
 h3. Version 0.5 - 2011/06/01
@@ -58,7 +58,7 @@ h3. Version 0.5 - 2011/06/01
 
 h3. Version 0.4 - 2011/03/23
 
-* Added "PHPass":http://code.google.com/p/textpattern/source/detail?r=3488 support while keeping compatibility with older TXP versions (v4.3.0 and older).
+* Added PHPass support while keeping compatibility with older TXP versions (v4.3.0 and older).
 * Added option to reset user's current session.
 * Remembers the field values if returned to the form because of an error.
 * Small wording and styling changes.
