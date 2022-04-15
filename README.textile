@@ -1,6 +1,6 @@
 h1. rah_change_passwords
 
-"Packagist":https://packagist.org/packages/rah/rah_change_passwords | "Issues":https://github.com/gocom/rah_change_passwords/issues | "Donate":https://rahforum.biz/donate/rah_change_passwords
+"Download":https://github.com/gocom/rah_change_passwords/releases | "Packagist":https://packagist.org/packages/rah/rah_change_passwords | "Issues":https://github.com/gocom/rah_change_passwords/issues
 
 Rah_change_password is a "Textpattern CMS":https://textpattern.com plugin that adds extra options to the "user editor":https://docs.textpattern.com/administration/users-panel. When logged in with a "publisher":https://docs.textpattern.com/administration/user-roles-and-privileges account, you will see options to change the password when editing any user account.
 
@@ -9,6 +9,8 @@ h2. Install
 Using "Composer":https://getcomposer.org:
 
 bc. $ composer require rah/rah_change_passwords
+
+Or "download":https://github.com/gocom/rah_change_passwords/releases an installer.
 
 h2. Changelog
 
