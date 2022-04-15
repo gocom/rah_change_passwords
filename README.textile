@@ -4,6 +4,8 @@ h1. rah_change_passwords
 
 Rah_change_password is a "Textpattern CMS":https://textpattern.com plugin that adds extra options to the "user editor":https://docs.textpattern.com/administration/users-panel. When logged in with a "publisher":https://docs.textpattern.com/administration/user-roles-and-privileges account, you will see options to change the password when editing any user account.
 
+"!https://raw.githubusercontent.com/gocom/rah_change_passwords/screenshots/images/editor.png!":https://raw.githubusercontent.com/gocom/rah_change_passwords/screenshots/images/editor.png
+
 h2. Install
 
 Using "Composer":https://getcomposer.org:
